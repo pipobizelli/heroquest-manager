@@ -1,0 +1,23 @@
+@mixin doubleH {
+    height: 10.54%;
+}
+
+@mixin doubleW {
+    width: 7.6%;
+}
+
+@mixin tripleH {
+    height: 15.81%;
+}
+
+@mixin tripleW {
+    width: 11.4%;
+}
+
+@mixin oneTileActor($actor){
+  width: 3.8%;
+  height: 5.27%;
+  position: absolute;
+  background: url('https://firebasestorage.googleapis.com/v0/b/heroquest-manager.appspot.com/o/' + $actor + '.png?alt=media') no-repeat 0 0;
+  background-size: 100%;
+}

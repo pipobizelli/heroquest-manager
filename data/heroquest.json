@@ -1,0 +1,1982 @@
+{
+  "lines": 19,
+  "columns": 26,
+  "config": {
+    "0:0": {
+      "config": "1001",
+      "hasDoor": false
+    },
+    "0:1": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "0:2": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "0:3": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "0:4": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "0:5": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "0:6": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "0:7": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "0:8": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "0:9": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "0:10": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "0:11": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "0:12": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "0:13": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "0:14": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "0:15": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "0:16": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "0:17": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "0:18": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "0:19": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "0:20": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "0:21": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "0:22": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "0:23": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "0:24": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "0:25": {
+      "config": "1100",
+      "hasDoor": false
+    },
+    "1:0": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "1:1": {
+      "config": "1001",
+      "hasDoor": false
+    },
+    "1:2": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "1:3": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "1:4": {
+      "config": "1100",
+      "hasDoor": false
+    },
+    "1:5": {
+      "config": "1001",
+      "hasDoor": false
+    },
+    "1:6": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "1:7": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "1:8": {
+      "config": "1100",
+      "hasDoor": false
+    },
+    "1:9": {
+      "config": "1001",
+      "hasDoor": false
+    },
+    "1:10": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "1:11": {
+      "config": "1100",
+      "hasDoor": false
+    },
+    "1:12": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "1:13": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "1:14": {
+      "config": "1001",
+      "hasDoor": false
+    },
+    "1:15": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "1:16": {
+      "config": "1100",
+      "hasDoor": false
+    },
+    "1:17": {
+      "config": "1001",
+      "hasDoor": false
+    },
+    "1:18": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "1:19": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "1:20": {
+      "config": "1100",
+      "hasDoor": false
+    },
+    "1:21": {
+      "config": "1001",
+      "hasDoor": false
+    },
+    "1:22": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "1:23": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "1:24": {
+      "config": "1100",
+      "hasDoor": false
+    },
+    "1:25": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "2:0": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "2:1": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "2:2": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "2:3": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "2:4": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "2:5": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "2:6": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "2:7": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "2:8": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "2:9": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "2:10": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "2:11": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "2:12": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "2:13": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "2:14": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "2:15": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "2:16": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "2:17": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "2:18": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "2:19": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "2:20": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "2:21": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "2:22": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "2:23": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "2:24": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "2:25": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "3:0": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "3:1": {
+      "config": "0011",
+      "hasDoor": false
+    },
+    "3:2": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "3:3": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "3:4": {
+      "config": "0110",
+      "hasDoor": false
+    },
+    "3:5": {
+      "config": "0011",
+      "hasDoor": false
+    },
+    "3:6": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "3:7": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "3:8": {
+      "config": "0110",
+      "hasDoor": false
+    },
+    "3:9": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "3:10": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "3:11": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "3:12": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "3:13": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "3:14": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "3:15": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "3:16": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "3:17": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "3:18": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "3:19": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "3:20": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "3:21": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "3:22": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "3:23": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "3:24": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "3:25": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "4:0": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "4:1": {
+      "config": "1001",
+      "hasDoor": false
+    },
+    "4:2": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "4:3": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "4:4": {
+      "config": "1100",
+      "hasDoor": false
+    },
+    "4:5": {
+      "config": "1001",
+      "hasDoor": false
+    },
+    "4:6": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "4:7": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "4:8": {
+      "config": "1100",
+      "hasDoor": false
+    },
+    "4:9": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "4:10": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "4:11": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "4:12": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "4:13": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "4:14": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "4:15": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "4:16": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "4:17": {
+      "config": "0011",
+      "hasDoor": false
+    },
+    "4:18": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "4:19": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "4:20": {
+      "config": "0110",
+      "hasDoor": false
+    },
+    "4:21": {
+      "config": "0011",
+      "hasDoor": false
+    },
+    "4:22": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "4:23": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "4:24": {
+      "config": "0110",
+      "hasDoor": false
+    },
+    "4:25": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "5:0": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "5:1": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "5:2": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "5:3": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "5:4": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "5:5": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "5:6": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "5:7": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "5:8": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "5:9": {
+      "config": "0011",
+      "hasDoor": false
+    },
+    "5:10": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "5:11": {
+      "config": "0110",
+      "hasDoor": false
+    },
+    "5:12": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "5:13": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "5:14": {
+      "config": "0011",
+      "hasDoor": false
+    },
+    "5:15": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "5:16": {
+      "config": "0110",
+      "hasDoor": false
+    },
+    "5:17": {
+      "config": "1001",
+      "hasDoor": false
+    },
+    "5:18": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "5:19": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "5:20": {
+      "config": "1100",
+      "hasDoor": false
+    },
+    "5:21": {
+      "config": "1001",
+      "hasDoor": false
+    },
+    "5:22": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "5:23": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "5:24": {
+      "config": "1100",
+      "hasDoor": false
+    },
+    "5:25": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "6:0": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "6:1": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "6:2": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "6:3": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "6:4": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "6:5": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "6:6": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "6:7": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "6:8": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "6:9": {
+      "config": "1001",
+      "hasDoor": false
+    },
+    "6:10": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "6:11": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "6:12": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "6:13": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "6:14": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "6:15": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "6:16": {
+      "config": "1100",
+      "hasDoor": false
+    },
+    "6:17": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "6:18": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "6:19": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "6:20": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "6:21": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "6:22": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "6:23": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "6:24": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "6:25": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "7:0": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "7:1": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "7:2": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "7:3": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "7:4": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "7:5": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "7:6": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "7:7": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "7:8": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "7:9": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "7:10": {
+      "config": "1001",
+      "hasDoor": false
+    },
+    "7:11": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "7:12": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "7:13": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "7:14": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "7:15": {
+      "config": "1100",
+      "hasDoor": false
+    },
+    "7:16": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "7:17": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "7:18": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "7:19": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "7:20": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "7:21": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "7:22": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "7:23": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "7:24": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "7:25": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "8:0": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "8:1": {
+      "config": "0011",
+      "hasDoor": false
+    },
+    "8:2": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "8:3": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "8:4": {
+      "config": "0110",
+      "hasDoor": false
+    },
+    "8:5": {
+      "config": "0011",
+      "hasDoor": false
+    },
+    "8:6": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "8:7": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "8:8": {
+      "config": "0110",
+      "hasDoor": false
+    },
+    "8:9": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "8:10": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "8:11": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "8:12": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "8:13": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "8:14": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "8:15": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "8:16": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "8:17": {
+      "config": "0011",
+      "hasDoor": false
+    },
+    "8:18": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "8:19": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "8:20": {
+      "config": "0110",
+      "hasDoor": false
+    },
+    "8:21": {
+      "config": "0011",
+      "hasDoor": false
+    },
+    "8:22": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "8:23": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "8:24": {
+      "config": "0110",
+      "hasDoor": false
+    },
+    "8:25": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "9:0": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "9:1": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "9:2": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "9:3": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "9:4": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "9:5": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "9:6": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "9:7": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "9:8": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "9:9": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "9:10": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "9:11": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "9:12": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "9:13": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "9:14": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "9:15": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "9:16": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "9:17": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "9:18": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "9:19": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "9:20": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "9:21": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "9:22": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "9:23": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "9:24": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "9:25": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "10:0": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "10:1": {
+      "config": "1001",
+      "hasDoor": false
+    },
+    "10:2": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "10:3": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "10:4": {
+      "config": "1100",
+      "hasDoor": false
+    },
+    "10:5": {
+      "config": "1001",
+      "hasDoor": false
+    },
+    "10:6": {
+      "config": "1100",
+      "hasDoor": false
+    },
+    "10:7": {
+      "config": "1001",
+      "hasDoor": false
+    },
+    "10:8": {
+      "config": "1100",
+      "hasDoor": false
+    },
+    "10:9": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "10:10": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "10:11": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "10:12": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "10:13": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "10:14": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "10:15": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "10:16": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "10:17": {
+      "config": "1001",
+      "hasDoor": false
+    },
+    "10:18": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "10:19": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "10:20": {
+      "config": "1100",
+      "hasDoor": false
+    },
+    "10:21": {
+      "config": "1001",
+      "hasDoor": false
+    },
+    "10:22": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "10:23": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "10:24": {
+      "config": "1100",
+      "hasDoor": false
+    },
+    "10:25": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "11:0": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "11:1": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "11:2": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "11:3": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "11:4": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "11:5": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "11:6": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "11:7": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "11:8": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "11:9": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "11:10": {
+      "config": "0011",
+      "hasDoor": false
+    },
+    "11:11": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "11:12": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "11:13": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "11:14": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "11:15": {
+      "config": "0110",
+      "hasDoor": false
+    },
+    "11:16": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "11:17": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "11:18": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "11:19": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "11:20": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "11:21": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "11:22": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "11:23": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "11:24": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "11:25": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "12:0": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "12:1": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "12:2": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "12:3": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "12:4": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "12:5": {
+      "config": "0011",
+      "hasDoor": false
+    },
+    "12:6": {
+      "config": "0110",
+      "hasDoor": false
+    },
+    "12:7": {
+      "config": "0011",
+      "hasDoor": false
+    },
+    "12:8": {
+      "config": "0110",
+      "hasDoor": false
+    },
+    "12:9": {
+      "config": "0011",
+      "hasDoor": false
+    },
+    "12:10": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "12:11": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "12:12": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "12:13": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "12:14": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "12:15": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "12:16": {
+      "config": "0110",
+      "hasDoor": false
+    },
+    "12:17": {
+      "config": "0011",
+      "hasDoor": false
+    },
+    "12:18": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "12:19": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "12:20": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "12:21": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "12:22": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "12:23": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "12:24": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "12:25": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "13:0": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "13:1": {
+      "config": "0011",
+      "hasDoor": false
+    },
+    "13:2": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "13:3": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "13:4": {
+      "config": "0110",
+      "hasDoor": false
+    },
+    "13:5": {
+      "config": "1001",
+      "hasDoor": false
+    },
+    "13:6": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "13:7": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "13:8": {
+      "config": "1100",
+      "hasDoor": false
+    },
+    "13:9": {
+      "config": "1001",
+      "hasDoor": false
+    },
+    "13:10": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "13:11": {
+      "config": "1100",
+      "hasDoor": false
+    },
+    "13:12": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "13:13": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "13:14": {
+      "config": "1001",
+      "hasDoor": false
+    },
+    "13:15": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "13:16": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "13:17": {
+      "config": "1100",
+      "hasDoor": false
+    },
+    "13:18": {
+      "config": "0011",
+      "hasDoor": false
+    },
+    "13:19": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "13:20": {
+      "config": "0110",
+      "hasDoor": false
+    },
+    "13:21": {
+      "config": "0011",
+      "hasDoor": false
+    },
+    "13:22": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "13:23": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "13:24": {
+      "config": "0110",
+      "hasDoor": false
+    },
+    "13:25": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "14:0": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "14:1": {
+      "config": "1001",
+      "hasDoor": false
+    },
+    "14:2": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "14:3": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "14:4": {
+      "config": "1100",
+      "hasDoor": false
+    },
+    "14:5": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "14:6": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "14:7": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "14:8": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "14:9": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "14:10": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "14:11": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "14:12": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "14:13": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "14:14": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "14:15": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "14:16": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "14:17": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "14:18": {
+      "config": "1001",
+      "hasDoor": false
+    },
+    "14:19": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "14:20": {
+      "config": "1100",
+      "hasDoor": false
+    },
+    "14:21": {
+      "config": "1001",
+      "hasDoor": false
+    },
+    "14:22": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "14:23": {
+      "config": "1000",
+      "hasDoor": false
+    },
+    "14:24": {
+      "config": "1100",
+      "hasDoor": false
+    },
+    "14:25": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "15:0": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "15:1": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "15:2": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "15:3": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "15:4": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "15:5": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "15:6": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "15:7": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "15:8": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "15:9": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "15:10": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "15:11": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "15:12": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "15:13": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "15:14": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "15:15": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "15:16": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "15:17": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "15:18": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "15:19": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "15:20": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "15:21": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "15:22": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "15:23": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "15:24": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "15:25": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "16:0": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "16:1": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "16:2": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "16:3": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "16:4": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "16:5": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "16:6": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "16:7": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "16:8": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "16:9": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "16:10": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "16:11": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "16:12": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "16:13": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "16:14": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "16:15": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "16:16": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "16:17": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "16:18": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "16:19": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "16:20": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "16:21": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "16:22": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "16:23": {
+      "config": "0000",
+      "hasDoor": false
+    },
+    "16:24": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "16:25": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "17:0": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "17:1": {
+      "config": "0011",
+      "hasDoor": false
+    },
+    "17:2": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "17:3": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "17:4": {
+      "config": "0110",
+      "hasDoor": false
+    },
+    "17:5": {
+      "config": "0011",
+      "hasDoor": false
+    },
+    "17:6": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "17:7": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "17:8": {
+      "config": "0110",
+      "hasDoor": false
+    },
+    "17:9": {
+      "config": "0011",
+      "hasDoor": false
+    },
+    "17:10": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "17:11": {
+      "config": "0110",
+      "hasDoor": false
+    },
+    "17:12": {
+      "config": "0001",
+      "hasDoor": false
+    },
+    "17:13": {
+      "config": "0100",
+      "hasDoor": false
+    },
+    "17:14": {
+      "config": "0011",
+      "hasDoor": false
+    },
+    "17:15": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "17:16": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "17:17": {
+      "config": "0110",
+      "hasDoor": false
+    },
+    "17:18": {
+      "config": "0011",
+      "hasDoor": false
+    },
+    "17:19": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "17:20": {
+      "config": "0110",
+      "hasDoor": false
+    },
+    "17:21": {
+      "config": "0011",
+      "hasDoor": false
+    },
+    "17:22": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "17:23": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "17:24": {
+      "config": "0110",
+      "hasDoor": false
+    },
+    "17:25": {
+      "config": "0101",
+      "hasDoor": false
+    },
+    "18:0": {
+      "config": "0011",
+      "hasDoor": false
+    },
+    "18:1": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "18:2": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "18:3": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "18:4": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "18:5": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "18:6": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "18:7": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "18:8": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "18:9": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "18:10": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "18:11": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "18:12": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "18:13": {
+      "config": "0010",
+      "hasDoor": false
+    },
+    "18:14": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "18:15": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "18:16": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "18:17": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "18:18": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "18:19": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "18:20": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "18:21": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "18:22": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "18:23": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "18:24": {
+      "config": "1010",
+      "hasDoor": false
+    },
+    "18:25": {
+      "config": "0110",
+      "hasDoor": false
+    }
+  }
+}
