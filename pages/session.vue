@@ -6,6 +6,7 @@
 
 <script>
 import Board from '@@/components/board.vue'
+import SessionFacade from '@@/facades/session'
 // import Render from '@@/renders/session'
 export default {
   data () {
@@ -21,7 +22,14 @@ export default {
       }
     }
   },
+  methods: {
+  },
   created () {
+    SessionFacade().getSession('IqUvbPFIbemnrGj0FyZj').then((resp) => {
+      console.log(resp.data)
+      this.quest.components = resp.data.quest.components
+      this.quest.map = resp.data.quest.map
+    })
     // let response = Render().start({
     //   session_id: 'IqUvbPFIbemnrGj0FyZj',
     //   slots: [{

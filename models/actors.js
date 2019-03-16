@@ -1,8 +1,8 @@
-import Adapter from '@@/adapters/firebase'
+import Adapter from '../adapters/firebase'
 export default () => {
   return {
-    async get (id, collection) {
-      let actor = await Adapter.getData(id, collection)
+    async get (collection, id) {
+      let actor = await Adapter().getData(collection, id)
       return actor
     }
 

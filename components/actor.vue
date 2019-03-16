@@ -28,25 +28,40 @@ export default {
       }
     }
   },
-  props: ['handle', 'type', 'rotation', 'tiles', 'board'],
+  props: {
+    'handle': {
+      type: String
+    },
+    'type': {
+      type: String
+    },
+    'rotation': {
+      type: Number,
+      default () {
+        return 0
+      }
+    },
+    'tiles': {
+      type: Array,
+      default () {
+        return ['0:0']
+      }
+    },
+    'board': {
+      type: Object
+    }
+  },
   methods: {
     isDraggable (type) {
       return type === 'hero' || type === 'monster'
     },
-    move_actor (data) {
-      this.position.x = data.x
-      this.position.y = data.y
-      // this.rotation = data.rotation
-      this.styles.transform = `translate(${this.position.x}px, ${this.position.y}px)`
-    },
-    get_pos () {
+    getPos () {
+      console.log(this.tiles)
       this.position = Tile(this.board).getTileOffset(this.tiles[0])
     }
   },
   mounted () {
-    window.addEventListener('load', (event) => {
-      this.get_pos()
-    })
+    this.getPos()
   }
 }
 </script>
