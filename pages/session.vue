@@ -7,10 +7,13 @@
 <script>
 import Board from '@@/components/board.vue'
 import SessionFacade from '@@/facades/session'
+import { EventHub } from '@@/models/event_hub'
 // import Render from '@@/renders/session'
 export default {
   data () {
     return {
+      active_turn: 0,
+      turns: [],
       session: {},
       quest: {
         components: [],
@@ -23,22 +26,16 @@ export default {
     }
   },
   methods: {
+    setTurn (action) {
+      this.turns.push(action)
+      this.active_turn = this.turns.length
+    }
   },
   created () {
     SessionFacade().getSession('IqUvbPFIbemnrGj0FyZj').then((resp) => {
-      this.quest.components = resp.data.quest.components
-      this.quest.map = resp.data.quest.map
+      this.quest = resp.data.quest
     })
-    // let response = Render().start({
-    //   session_id: 'IqUvbPFIbemnrGj0FyZj',
-    //   slots: [{
-    //     character: 'Bob',
-    //     tiles: ['0:0']
-    //   }]
-    // })
-    // console.log(response)
-    // this.session = response.session
-    // this.quest = response.quest
+    EventHub.$on('Board/action/move', (payload) => { console.log(payload) })
   },
   components: {
     Board

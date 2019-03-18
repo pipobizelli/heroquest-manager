@@ -3,6 +3,7 @@
     'draggable': isDraggable(type)
     }, `${handle}--${rotation}`,
      handle, 'actor']"
+    :data-id="id"
     :data-actor="handle"
     :data-tiles="tiles"
     :data-x="position.x"
@@ -29,6 +30,9 @@ export default {
     }
   },
   props: {
+    'id': {
+      type: String
+    },
     'handle': {
       type: String
     },

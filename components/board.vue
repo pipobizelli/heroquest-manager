@@ -46,11 +46,12 @@
             :rotation="objective.attributes.rotation">
           </actor>
         </template>
-        <template v-for="comp in quest.components">
+        <template v-for="(comp, index) in quest.components">
           <actor
             :board="board"
             :tiles="comp.attributes.tiles"
             :handle="comp.label"
+            :id="comp.id"
             :type="comp.class"
             :rotation="comp.attributes.rotation">
           </actor>
@@ -66,6 +67,7 @@ import interact from 'interactjs'
 import HeroquestBoard from '@@/data/heroquest.json'
 import Actor from '@@/components/actor.vue'
 import Tile from '@@/helpers/tile'
+import { EventHub } from '@@/models/event_hub'
 import { image } from '@@/helpers/media'
 // import Quest from '../data/the_maze'
 
@@ -173,6 +175,11 @@ export default {
         let r = Math.round(dataY / gridHeight) > 0
           ? Math.round(dataY / gridHeight) > maxR ? maxR : Math.round(dataY / gridHeight)
           : 0
+
+        EventHub.$emit('Board/action/move', {
+          tile: `${r}:${c}`,
+          actor: event.target.dataset.actor
+        })
 
         this.set_target_position({
           r,

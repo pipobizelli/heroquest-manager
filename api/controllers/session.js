@@ -7,7 +7,7 @@ export default async function (req, res) {
   let quest = await Quest().get(session.quest)
   let heroes = session.slots.map(async (h) => {
     let char = await Actors().get('characters', h.character)
-    let hero = await Actors().get('heroes', char.class)
+    let hero = await Actors().get('heroes', char.type)
     return {
       ...hero,
       ...char,
@@ -20,7 +20,7 @@ export default async function (req, res) {
   })
 
   let others = quest.components.map(async (c) => {
-    let comp = await Actors().get(c.collection, c.id)
+    let comp = await Actors().get(c.collection, c.type)
     return {
       ...comp,
       attributes: {
@@ -36,6 +36,9 @@ export default async function (req, res) {
   res.json({
     ...session,
     quest: {
+      objectives: {
+        ...quest.objectives
+      },
       map: quest.map,
       components: await components
     }
