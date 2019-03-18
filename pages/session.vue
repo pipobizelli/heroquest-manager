@@ -26,7 +26,6 @@ export default {
   },
   created () {
     SessionFacade().getSession('IqUvbPFIbemnrGj0FyZj').then((resp) => {
-      console.log(resp.data)
       this.quest.components = resp.data.quest.components
       this.quest.map = resp.data.quest.map
     })

@@ -2,7 +2,7 @@ const Firebase = require('firebase-admin')
 const Config = require('../config/env')
 
 Firebase.initializeApp({
-  credential: Firebase.credential.cert(Config),
+  credential: Firebase.credential.cert(Config.firebase_credentials),
   storageBucket: 'heroquest-manager.appspot.com'
 })
 

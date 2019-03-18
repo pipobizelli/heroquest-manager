@@ -56,7 +56,6 @@ export default {
       return type === 'hero' || type === 'monster'
     },
     getPos () {
-      console.log(this.tiles)
       this.position = Tile(this.board).getTileOffset(this.tiles[0])
     }
   },

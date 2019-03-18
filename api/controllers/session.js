@@ -11,14 +11,22 @@ export default async function (req, res) {
     return {
       ...hero,
       ...char,
-      tiles: h.tiles
+      class: 'hero',
+      attributes: {
+        ...char.attributes,
+        tiles: h.tiles
+      }
     }
   })
+
   let others = quest.components.map(async (c) => {
     let comp = await Actors().get(c.collection, c.id)
     return {
       ...comp,
-      tiles: c.tiles
+      attributes: {
+        ...comp.attributes,
+        tiles: c.attributes.tiles
+      }
     }
   })
   let components = Promise.all(heroes.concat(others)).then((result) => {

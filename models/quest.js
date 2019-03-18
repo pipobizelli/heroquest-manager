@@ -5,8 +5,8 @@ export default () => {
       try {
         let quest = await Adapter().getData('quests', id)
         return quest
-      } catch (exception) {
-        console.log('Erro', exception)
+      } catch (e) {
+        console.log('[model] quest', e)
       }
     }
   }

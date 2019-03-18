@@ -51,7 +51,7 @@
             :board="board"
             :tiles="comp.attributes.tiles"
             :handle="comp.label"
-            :type="comp.type"
+            :type="comp.class"
             :rotation="comp.attributes.rotation">
           </actor>
         </template>
@@ -173,8 +173,6 @@ export default {
         let r = Math.round(dataY / gridHeight) > 0
           ? Math.round(dataY / gridHeight) > maxR ? maxR : Math.round(dataY / gridHeight)
           : 0
-
-        console.log(c, r)
 
         this.set_target_position({
           r,

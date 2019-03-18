@@ -2,8 +2,12 @@ import Adapter from '../adapters/firebase'
 export default () => {
   return {
     async get (collection, id) {
-      let actor = await Adapter().getData(collection, id)
-      return actor
+      try {
+        let actor = await Adapter().getData(collection, id)
+        return actor
+      } catch (e) {
+        console.log('[model] actors', e)
+      }
     }
 
     // TODO

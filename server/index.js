@@ -34,7 +34,7 @@ async function start () {
   })
 
   Firebase.initializeApp({
-    credential: Firebase.credential.cert(Config),
+    credential: Firebase.credential.cert(Config.firebase_credentials),
     storageBucket: 'heroquest-manager.appspot.com'
   })
 }
