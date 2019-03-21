@@ -1,5 +1,5 @@
 import express from 'express'
-import { GetSession } from '../api/controllers/session'
+import { AddSession, GetSession } from '../api/controllers/session'
 import { GetQuest, ListQuest } from '../api/controllers/quests'
 import { GetCharacter, ListCharacter } from '../api/controllers/characters'
 
@@ -7,6 +7,7 @@ const app = express()
 
 // Session ==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--=
 app.get('/sessions/:id', (req, res) => { GetSession(req, res) })
+app.post('/sessions/add', (req, res) => { GetSession(req, res) })
 
 // Quests ==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
 app.get('/quests/:id', (req, res) => { GetQuest(req, res) })

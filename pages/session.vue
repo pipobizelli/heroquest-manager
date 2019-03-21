@@ -12,7 +12,7 @@
 <script>
 import Board from '@@/components/board.vue'
 import SessionForm from '@@/components/session_form.vue'
-// import SessionFacade from '@@/facades/session'
+import SessionFacade from '@@/facades/session'
 import { EventHub } from '@@/models/event_hub'
 // import Render from '@@/renders/session'
 export default {
@@ -42,6 +42,14 @@ export default {
     // SessionFacade().getSession('IqUvbPFIbemnrGj0FyZj').then((resp) => {
     //   this.quest = resp.data.quest
     // })
+    EventHub.$on('SessionForm/setQuest', (session) => {
+      try {
+        console.log('gravando a quest...', session)
+        SessionFacade().addSession(session).then(s => console.log(s))
+      } catch (e) {
+        console.log('[page] session create')
+      }
+    })
     EventHub.$on('Board/action/move', (payload) => { console.log(payload) })
   },
   components: {

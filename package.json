@@ -18,6 +18,7 @@
   "homepage": "https://github.com/pipobizelli/heroquest-manager#readme",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.16",
+    "@fortawesome/free-brands-svg-icons": "^5.8.0",
     "@fortawesome/free-regular-svg-icons": "^5.8.0",
     "@fortawesome/free-solid-svg-icons": "^5.8.0",
     "@fortawesome/vue-fontawesome": "^0.1.6",

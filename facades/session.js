@@ -7,6 +7,17 @@ export default () => {
         return response
       } catch (e) {
         console.log('[facade] session', e)
+        return {}
+      }
+    },
+
+    async addSession (session) {
+      try {
+        let response = await axios.post('http://localhost:3000/api/sessions/add', session)
+        return response
+      } catch (e) {
+        console.log('[facade] session', e)
+        return {}
       }
     }
   }

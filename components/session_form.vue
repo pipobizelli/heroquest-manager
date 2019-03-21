@@ -21,11 +21,14 @@
         <h3 class="session-form__label">Personagens:</h3>
         <div class="session-form__players" v-for="(s, i) in slots">
           <p v-html="`Slot ${i}`"></p>
-          <input type="text" name="players" v-model="slots[i].character" v-show="!slots[i].is_loaded">
-          
+          <input type="text" name="players" v-model="slots[i].character" v-if="!slots[i].is_loaded">
+          <p v-if="slots[i].is_loaded">
+            <!-- <span v-html="slots[i].character.name"></span> -->
+            OK!
+          </p>
         </div>
       </label>
-      <button type="button" name="play" @click="set_session">Play!</button>
+      <button type="button" name="play" @click="create_session">Play!</button>
     </form>
   </section>
 </template>
@@ -57,19 +60,29 @@ export default {
   },
   watch: {
     selected_quest (val) {
-      let quest = this.quests.filter((q) => {
-        return q.id === val
-      })[0]
+      let quest = this.quests.filter(q => q.id === val)[0]
       quest.data.slots.forEach((s) => {
         this.slots.push({
-          character: '',
           is_loaded: false,
           tiles: s.tiles
         })
       })
     },
     characters (val) {
-      console.log(val, this.characters)
+      val.map((c, i) => {
+        if (c) {
+          console.log(c)
+          let chars = this.all_characters.filter(a => a.data.name === c)
+          console.log('chars:', chars[0])
+          if (chars[0]) {
+            this.slots[i] = {
+              character: chars[0].id,
+              is_loaded: true,
+              tiles: this.slots[i].tiles
+            }
+          }
+        }
+      })
     }
   },
   async created () {
@@ -89,10 +102,11 @@ export default {
     }
   },
   methods: {
-    set_session () {
-      EventHub.$on('SessionForm/setQuest', {
+    create_session () {
+      EventHub.$emit('SessionForm/setQuest', {
         quest: this.selected_quest,
-        slots: this.slots
+        slots: this.slots,
+        turns: []
       })
     }
   }

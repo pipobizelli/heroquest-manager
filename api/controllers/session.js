@@ -58,3 +58,12 @@ export async function GetSession (req, res) {
     })
   }
 }
+
+export async function AddSession (req, res) {
+  try {
+    let response = await Session().add(req.params.session)
+    res.json(response)
+  } catch (e) {
+    console.log('[controller] ListQuest', e)
+  }
+}

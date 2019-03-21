@@ -11,10 +11,11 @@ export default () => {
       }
     },
 
-    async create (payload) {
+    async add (payload) {
       try {
+        console.log(payload)
         let session = await Adapter().addDoc('sessions', payload)
-        return session.id
+        return session
       } catch (e) {
         console.log('[model] session', e)
         return {}

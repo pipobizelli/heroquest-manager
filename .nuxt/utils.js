@@ -135,7 +135,7 @@ export async function setContext(app, context) {
       payload: context.payload,
       error: context.error,
       base: '/',
-      env: {}
+      env: {"base_url":"https://undefined"}
     }
     // Only set once
     if (context.req) app.context.req = context.req
