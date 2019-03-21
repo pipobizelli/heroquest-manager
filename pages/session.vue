@@ -1,17 +1,24 @@
 <template>
   <section class="session">
-    <board :quest="quest"></board>
+    <article class="session__preset" v-if="!preset">
+      <session-form></session-form>
+    </article>
+    <article class="session__board" v-else>
+      <board :quest="quest"></board>
+    </article>
   </section>
 </template>
 
 <script>
 import Board from '@@/components/board.vue'
-import SessionFacade from '@@/facades/session'
+import SessionForm from '@@/components/session_form.vue'
+// import SessionFacade from '@@/facades/session'
 import { EventHub } from '@@/models/event_hub'
 // import Render from '@@/renders/session'
 export default {
   data () {
     return {
+      preset: false,
       active_turn: 0,
       turns: [],
       session: {},
@@ -32,13 +39,14 @@ export default {
     }
   },
   created () {
-    SessionFacade().getSession('IqUvbPFIbemnrGj0FyZj').then((resp) => {
-      this.quest = resp.data.quest
-    })
+    // SessionFacade().getSession('IqUvbPFIbemnrGj0FyZj').then((resp) => {
+    //   this.quest = resp.data.quest
+    // })
     EventHub.$on('Board/action/move', (payload) => { console.log(payload) })
   },
   components: {
-    Board
+    Board,
+    SessionForm
   }
 }
 </script>

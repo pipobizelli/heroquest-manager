@@ -7,9 +7,36 @@ export default () => {
     },
 
     async getData (collection, id) {
-      let db = this.getDb()
-      var result = await db.collection(collection).doc(id).get()
-      return result.data()
+      try {
+        let db = this.getDb()
+        var result = await db.collection(collection).doc(id).get()
+        return result.data()
+      } catch (e) {
+        console.log('[adapter] getData', e)
+        return {}
+      }
+    },
+
+    async getAllDocs (collection) {
+      try {
+        let db = this.getDb()
+        var result = await db.collection(collection).get()
+        return result
+      } catch (e) {
+        console.log('[adapter] getAll', e)
+        return {}
+      }
+    },
+
+    async addDoc (collection, data) {
+      try {
+        let db = this.getDb()
+        var result = await db.collection(collection).add(data)
+        return result.id
+      } catch (e) {
+        console.log('[adapter] setDoc', e)
+        return {}
+      }
     }
   }
 }
