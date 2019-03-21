@@ -60,10 +60,10 @@ export async function GetSession (req, res) {
 }
 
 export async function AddSession (req, res) {
-  try {
-    let response = await Session().add(req.params.session)
-    res.json(response)
-  } catch (e) {
-    console.log('[controller] ListQuest', e)
-  }
+  let response = await Session().add({
+    'quest': req.body.quest,
+    'slots': req.body.slots,
+    'turns': req.body.turns
+  })
+  res.json(response)
 }

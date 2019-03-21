@@ -6,18 +6,17 @@ export default () => {
         let session = await Adapter().getData('sessions', id)
         return session
       } catch (e) {
-        console.log('[model] session', e)
+        console.log('[model] session')
         return {}
       }
     },
 
     async add (payload) {
       try {
-        console.log(payload)
         let session = await Adapter().addDoc('sessions', payload)
         return session
       } catch (e) {
-        console.log('[model] session', e)
+        console.log('[model] session')
         return {}
       }
     }

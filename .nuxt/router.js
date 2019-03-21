@@ -3,7 +3,8 @@ import Router from 'vue-router'
 import { interopDefault } from './utils'
 
 const _6451454a = () => interopDefault(import('../pages/preview.vue' /* webpackChunkName: "pages/preview" */))
-const _1976e529 = () => interopDefault(import('../pages/session.vue' /* webpackChunkName: "pages/session" */))
+const _1019a7c6 = () => interopDefault(import('../pages/sessions/index.vue' /* webpackChunkName: "pages/sessions/index" */))
+const _07f1e448 = () => interopDefault(import('../pages/sessions/_session.vue' /* webpackChunkName: "pages/sessions/_session" */))
 const _5dd09025 = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
 Vue.use(Router)
@@ -85,9 +86,13 @@ export function createRouter() {
       component: _6451454a,
       name: "preview"
     }, {
-      path: "/session",
-      component: _1976e529,
-      name: "session"
+      path: "/sessions",
+      component: _1019a7c6,
+      name: "sessions"
+    }, {
+      path: "/sessions/:session",
+      component: _07f1e448,
+      name: "sessions-session"
     }, {
       path: "/",
       component: _5dd09025,

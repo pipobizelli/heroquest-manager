@@ -32,9 +32,9 @@ export default () => {
       try {
         let db = this.getDb()
         var result = await db.collection(collection).add(data)
-        return result
+        return result.id
       } catch (e) {
-        console.log('[adapter] setDoc', e)
+        console.log('[adapter] addDoc')
         return {}
       }
     }

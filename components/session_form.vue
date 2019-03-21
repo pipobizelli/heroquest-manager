@@ -23,8 +23,8 @@
           <p v-html="`Slot ${i}`"></p>
           <input type="text" name="players" v-model="slots[i].character" v-if="!slots[i].is_loaded">
           <p v-if="slots[i].is_loaded">
-            <!-- <span v-html="slots[i].character.name"></span> -->
-            OK!
+            <span v-html="slots[i].name"></span>
+            <font-awesome-icon icon="check"></font-awesome-icon>
           </p>
         </div>
       </label>
@@ -71,12 +71,13 @@ export default {
     characters (val) {
       val.map((c, i) => {
         if (c) {
-          console.log(c)
           let chars = this.all_characters.filter(a => a.data.name === c)
-          console.log('chars:', chars[0])
-          if (chars[0]) {
+          let char = chars[0]
+          if (char) {
             this.slots[i] = {
-              character: chars[0].id,
+              character: char.id,
+              name: char.data.name,
+              class: char.data.class,
               is_loaded: true,
               tiles: this.slots[i].tiles
             }
@@ -105,7 +106,7 @@ export default {
     create_session () {
       EventHub.$emit('SessionForm/setQuest', {
         quest: this.selected_quest,
-        slots: this.slots,
+        slots: this.slots.filter(s => s.is_loaded),
         turns: []
       })
     }

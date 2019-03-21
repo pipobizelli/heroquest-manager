@@ -10,7 +10,7 @@ import { setContext, getLocation, getRouteData, normalizeError } from './utils'
 
 /* Plugins */
 
-import nuxt_plugin_global_f21f4e84 from 'nuxt_plugin_global_f21f4e84' // Source: ../plugins/global.js (mode: 'all')
+import nuxt_plugin_global_6441a2ce from 'nuxt_plugin_global_6441a2ce' // Source: ../plugins/global (mode: 'all')
 
 // Component: <NoSsr>
 Vue.component(NoSsr.name, NoSsr)
@@ -128,7 +128,7 @@ async function createApp(ssrContext) {
 
   // Plugin execution
 
-  if (typeof nuxt_plugin_global_f21f4e84 === 'function') await nuxt_plugin_global_f21f4e84(app.context, inject)
+  if (typeof nuxt_plugin_global_6441a2ce === 'function') await nuxt_plugin_global_6441a2ce(app.context, inject)
 
   // If server-side, wait for async component to be resolved first
   if (process.server && ssrContext && ssrContext.url) {

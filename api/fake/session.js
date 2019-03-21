@@ -1,11 +1,13 @@
-import SessionController from '../controllers/session'
+import { AddSession } from '../controllers/session'
 
 export default (req, res) => {
   let action = function (params) {
-    SessionController(req(params), res)
+    AddSession(req(params), res)
   }
 
   action({
-    id: 'IqUvbPFIbemnrGj0FyZj'
+    quest: 'DDCfjn9xkGdHExNS5XGS ',
+    slots: [],
+    turns: []
   })
 }
