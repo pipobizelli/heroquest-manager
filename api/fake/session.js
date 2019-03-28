@@ -1,13 +1,14 @@
-import { AddSession } from '../controllers/session'
+import { GetSession } from '../controllers/session'
 
 export default (req, res) => {
   let action = function (params) {
-    AddSession(req(params), res)
+    GetSession(req(params), res).then((data) => {
+      console.log('data:', data)
+      data.forEach(e => console.log(e.data))
+    })
   }
 
   action({
-    quest: 'DDCfjn9xkGdHExNS5XGS ',
-    slots: [],
-    turns: []
+    id: 'mBUh7YO4LoHYAsG8bRk5'
   })
 }

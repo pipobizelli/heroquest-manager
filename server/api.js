@@ -17,7 +17,7 @@ app.post('/sessions/add', async (req, res, next) => {
     next(e)
   }
 }, async (req, res) => {
-  res.send('Erro')
+  res.send('Add Session Error')
 })
 
 // Quests ==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==

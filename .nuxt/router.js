@@ -2,8 +2,10 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import { interopDefault } from './utils'
 
+const _296542ff = () => interopDefault(import('../pages/character/index.vue' /* webpackChunkName: "pages/character/index" */))
 const _6451454a = () => interopDefault(import('../pages/preview.vue' /* webpackChunkName: "pages/preview" */))
 const _1019a7c6 = () => interopDefault(import('../pages/sessions/index.vue' /* webpackChunkName: "pages/sessions/index" */))
+const _356b1066 = () => interopDefault(import('../pages/character/_character.vue' /* webpackChunkName: "pages/character/_character" */))
 const _07f1e448 = () => interopDefault(import('../pages/sessions/_session.vue' /* webpackChunkName: "pages/sessions/_session" */))
 const _5dd09025 = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
@@ -82,6 +84,10 @@ export function createRouter() {
     scrollBehavior,
 
     routes: [{
+      path: "/character",
+      component: _296542ff,
+      name: "character"
+    }, {
       path: "/preview",
       component: _6451454a,
       name: "preview"
@@ -89,6 +95,10 @@ export function createRouter() {
       path: "/sessions",
       component: _1019a7c6,
       name: "sessions"
+    }, {
+      path: "/character/:character",
+      component: _356b1066,
+      name: "character-character"
     }, {
       path: "/sessions/:session",
       component: _07f1e448,

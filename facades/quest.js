@@ -6,7 +6,7 @@ export default () => {
         let response = await axios.get(`http://localhost:3000/api/quests/${id}`)
         return response
       } catch (e) {
-        console.log('[facade] quest', e)
+        console.log('[facade] quest get', e)
       }
     },
 
@@ -15,7 +15,7 @@ export default () => {
         let response = await axios.get(`http://localhost:3000/api/quests`)
         return response
       } catch (e) {
-        console.log('[facade] quest', e)
+        console.log('[facade] quest getAll', e)
       }
     }
   }

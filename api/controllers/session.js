@@ -1,58 +1,11 @@
-import Session from '../../models/session'
-import Quest from '../../models/quest'
-import Actors from '../../models/actors'
+import { Factory, Rest } from '../../models/session/index'
 
 export async function GetSession (req, res) {
   try {
-    let session = await Session().get(req.params.id)
-    let quest = await Quest().get(session.quest)
-    let heroes = session.slots.map(async (h) => {
-      try {
-        let char = await Actors().get('characters', h.character)
-        let hero = await Actors().get('heroes', char.type)
-        return {
-          ...hero,
-          ...char,
-          class: 'hero',
-          attributes: {
-            ...char.attributes,
-            tiles: h.tiles
-          }
-        }
-      } catch (e) {
-        console.log('[callback] controller session characters', e)
-      }
-    })
-
-    let others = quest.components.map(async (c) => {
-      try {
-        let comp = await Actors().get(c.collection, c.type)
-        return {
-          ...comp,
-          attributes: {
-            ...comp.attributes,
-            tiles: c.attributes.tiles
-          }
-        }
-      } catch (e) {
-        console.log('[callback] controller session components', e)
-      }
-    })
-    let components = Promise.all(heroes.concat(others)).then((result) => {
-      return result
-    })
-    res.json({
-      ...session,
-      quest: {
-        objectives: {
-          ...quest.objectives
-        },
-        map: quest.map,
-        components: await components
-      }
-    })
+    let session = await Factory.GetSession(req.params.id)
+    res.json(session)
   } catch (e) {
-    console.log('[Controller] Session', e)
+    console.log('[Controller] Session GetSession')
     res.json({
       error: e
     })
@@ -60,10 +13,23 @@ export async function GetSession (req, res) {
 }
 
 export async function AddSession (req, res) {
-  let response = await Session().add({
-    'quest': req.body.quest,
-    'slots': req.body.slots,
-    'turns': req.body.turns
-  })
-  res.json(response)
+  try {
+    let response = await Factory.AddSession({
+      'quest': req.body.quest,
+      'slots': req.body.slots,
+      'turns': req.body.turns
+    })
+    res.json(response)
+  } catch (e) {
+    console.log('[controller] session AddSession')
+  }
+}
+
+export async function AddEntities (req, res) {
+  try {
+    let response = await Rest.addEntities(req.body.entities)
+    res.json(response)
+  } catch (e) {
+    console.log('[controller] session AddEntities')
+  }
 }

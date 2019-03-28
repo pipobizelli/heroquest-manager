@@ -12,7 +12,7 @@ export default () => {
         var result = await db.collection(collection).doc(id).get()
         return result.data()
       } catch (e) {
-        console.log('[adapter] getData', e)
+        console.log('[adapter] getData')
         return {}
       }
     },
@@ -23,7 +23,7 @@ export default () => {
         var result = await db.collection(collection).get()
         return result
       } catch (e) {
-        console.log('[adapter] getAll', e)
+        console.log('[adapter] getAll')
         return {}
       }
     },
@@ -35,6 +35,38 @@ export default () => {
         return result.id
       } catch (e) {
         console.log('[adapter] addDoc')
+        return {}
+      }
+    },
+
+    async queryDocs (collection, query) {
+      try {
+        let db = this.getDb()
+        let ref = db.collection(collection)
+        var result = await ref.where(query[0], query[1], query[2]).get()
+        return result.docs
+      } catch (e) {
+        console.log('[adapter] queryDocs')
+        return {}
+      }
+    },
+
+    async batchDocs (collection, arr) {
+      try {
+        let db = this.getDb()
+        let batch = db.batch()
+        arr.map(async (data) => {
+          try {
+            let doc = db.collection(collection).doc()
+            let response = await batch.set(doc, data)
+            return response
+          } catch (e) {
+            console.log('[adapter] addDoc batch')
+          }
+        })
+        return await batch.commit()
+      } catch (e) {
+        console.log('[adapter] addDoc', e)
         return {}
       }
     }
