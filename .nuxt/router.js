@@ -2,10 +2,12 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import { interopDefault } from './utils'
 
-const _296542ff = () => interopDefault(import('../pages/character/index.vue' /* webpackChunkName: "pages/character/index" */))
+const _0f74546a = () => interopDefault(import('../pages/characters/index.vue' /* webpackChunkName: "pages/characters/index" */))
 const _6451454a = () => interopDefault(import('../pages/preview.vue' /* webpackChunkName: "pages/preview" */))
+const _328258de = () => interopDefault(import('../pages/quests/index.vue' /* webpackChunkName: "pages/quests/index" */))
 const _1019a7c6 = () => interopDefault(import('../pages/sessions/index.vue' /* webpackChunkName: "pages/sessions/index" */))
-const _356b1066 = () => interopDefault(import('../pages/character/_character.vue' /* webpackChunkName: "pages/character/_character" */))
+const _29949142 = () => interopDefault(import('../pages/characters/_character.vue' /* webpackChunkName: "pages/characters/_character" */))
+const _042ff8b4 = () => interopDefault(import('../pages/quests/_quest.vue' /* webpackChunkName: "pages/quests/_quest" */))
 const _07f1e448 = () => interopDefault(import('../pages/sessions/_session.vue' /* webpackChunkName: "pages/sessions/_session" */))
 const _5dd09025 = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
@@ -84,21 +86,29 @@ export function createRouter() {
     scrollBehavior,
 
     routes: [{
-      path: "/character",
-      component: _296542ff,
-      name: "character"
+      path: "/characters",
+      component: _0f74546a,
+      name: "characters"
     }, {
       path: "/preview",
       component: _6451454a,
       name: "preview"
     }, {
+      path: "/quests",
+      component: _328258de,
+      name: "quests"
+    }, {
       path: "/sessions",
       component: _1019a7c6,
       name: "sessions"
     }, {
-      path: "/character/:character",
-      component: _356b1066,
-      name: "character-character"
+      path: "/characters/:character",
+      component: _29949142,
+      name: "characters-character"
+    }, {
+      path: "/quests/:quest",
+      component: _042ff8b4,
+      name: "quests-quest"
     }, {
       path: "/sessions/:session",
       component: _07f1e448,

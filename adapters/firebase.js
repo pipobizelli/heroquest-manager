@@ -66,8 +66,19 @@ export default () => {
         })
         return await batch.commit()
       } catch (e) {
-        console.log('[adapter] addDoc', e)
-        return {}
+        console.log('[adapter] addDoc')
+        return e
+      }
+    },
+
+    async updateDoc (collection, payload) {
+      try {
+        let db = this.getDb()
+        var result = await db.collection(collection).doc(payload.id).update(payload.data)
+        return result
+      } catch (e) {
+        console.log('[adapter] updateDoc')
+        return e
       }
     }
   }

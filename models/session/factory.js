@@ -5,7 +5,12 @@ export async function GetSession (sessionId) {
     let session = await Get(sessionId)
     let quest = await Adapter().getData('quests', session.quest)
     let entities = await Adapter().queryDocs('session_entities', ['session_id', '==', sessionId])
-    let components = entities.map(e => e.data())
+    let components = entities.map(e => {
+      return {
+        ...e.data(),
+        entity_id: e.id
+      }
+    })
 
     return {
       ...session,
@@ -65,16 +70,17 @@ export async function GetComponents (quest) {
 // Carregar e validar os Personagens carregados (se existem e se estão aptos)
 export async function GetCharaceters (slots) {
   try {
-    let characters = slots.map(async (h) => {
-      let char = await Adapter().getData('characters', h.character)
+    let characters = slots.map(async (slot, index) => {
+      let char = await Adapter().getData('characters', slot.character)
       let hero = await Adapter().getData('heroes', char.type)
       return {
         ...hero,
         ...char,
+        slot: index,
         class: 'hero',
         attributes: {
           ...char.attributes,
-          tiles: h.tiles
+          tiles: slot.tiles
         }
       }
     })

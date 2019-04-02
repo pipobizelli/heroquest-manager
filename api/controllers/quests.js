@@ -1,8 +1,8 @@
-import QuestModel from '../../models/quest'
+import { Rest } from '../../models/quest/index'
 
 export async function GetQuest (req, res) {
   try {
-    let response = await QuestModel().get(req.params.id)
+    let response = await Rest.Get(req.params.id)
     res.json(response)
   } catch (e) {
     console.log('[controller] getQuest', e)
@@ -11,9 +11,27 @@ export async function GetQuest (req, res) {
 
 export async function ListQuest (req, res) {
   try {
-    let response = await QuestModel().getAll()
+    let response = await Rest.GetAll()
     res.json(response)
   } catch (e) {
     console.log('[controller] ListQuest', e)
+  }
+}
+
+export async function AddQuest (req, res) {
+  try {
+    let response = await Rest.Add(req.body)
+    res.json(response)
+  } catch (e) {
+    console.log('[controller] AddQuest')
+  }
+}
+
+export async function UpdateQuest (req, res) {
+  try {
+    let response = await Rest.Update(req.body)
+    res.json(response)
+  } catch (e) {
+    console.log('[controller] UpdateQuest')
   }
 }

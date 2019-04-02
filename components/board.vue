@@ -7,39 +7,42 @@
               'tile--larger': (c+1)%3 === 0
             },{
               'tile--pathconfig': showPathConfig
-            }, `tileconfig-${get_tile_config(`${l}:${c}`)}`, 'tile']"
+            },{
+              'tile--disabled': tiles_disabled.indexOf(`${l}:${c}`) >= 0
+            },`tileconfig-${get_tile_config(`${l}:${c}`)}`, 'tile']"
           :data-tile="`${l}:${c}`"
-          @click="get_tile_config(`${l}:${c}`)"
+          @click="click_handler($event, `${l}:${c}`)"
           @contextmenu.prevent="handler($event, `${l}:${c}`)">
           <p v-show="showNum">
             {{l}}:{{c}}
           </p>
-          <!-- <input v-show="showPathConfig" type="text" name="config"
-          v-model="board.config[(board.tiles.columns * l) + c]" maxlength="10"> -->
         </div>
       </template>
       <article class="actors" ref="container">
         <template v-for="block in quest.map.blocks">
           <actor
             :board="board"
+            :entity_id="block.id"
             :tiles="block.tiles"
             :handle="block.tiles.length > 1 ? 'doubleblock' : 'block'"
-            type="block"
+            type="blocks"
             :rotation="0">
           </actor>
         </template>
         <template v-for="door in quest.map.doors">
           <actor
             :board="board"
+            :entity_id="door.id"
             :tiles="door.tiles"
             handle="door"
-            type="door"
+            type="doors"
             :rotation="get_rot(door)">
           </actor>
         </template>
         <template v-for="objective in Object.values(quest.objectives)">
           <actor
             :board="board"
+            :entity_id="objective.id"
             :tiles="objective.attributes.tiles"
             :handle="objective.label"
             :type="objective.type"
@@ -48,10 +51,11 @@
         </template>
         <template v-for="(comp, index) in quest.components">
           <actor
+            :active="active_actor == comp.label"
             :board="board"
+            :entity_id="comp.entity_id || comp.id"
             :tiles="comp.attributes.tiles"
-            :handle="comp.label"
-            :id="comp.id"
+            :handle="comp.label || comp.type"
             :type="comp.class"
             :rotation="comp.attributes.rotation">
           </actor>
@@ -74,8 +78,6 @@ import { image } from '@@/helpers/media'
 export default {
   data () {
     return {
-      gridWidth: 0,
-      gridHeight: 0,
       showPathConfig: false,
       showNum: false,
       board: {
@@ -98,6 +100,14 @@ export default {
           blocks: []
         }
       }
+    },
+    active_actor: {
+      type: String,
+      default: ''
+    },
+    tiles_disabled: {
+      type: Array,
+      default: []
     }
   },
   watch: {
@@ -126,11 +136,26 @@ export default {
 
       return rot
     },
-    set_target_position (payload) {
+    get_tile (r, c) {
+      return document.querySelectorAll(`[data-tile='${r}:${c}']`)[0]
+    },
+    snap_target (payload) {
       let target = payload.target
-      let tile = document.querySelectorAll(`[data-tile='${payload.r}:${payload.c}']`)[0]
+      let tile = this.get_tile(payload.r, payload.c)
       let x = tile.offsetLeft
       let y = tile.offsetTop
+
+      this.set_target_position({
+        target,
+        x,
+        y
+      })
+    },
+    set_target_position (payload) {
+      let target = payload.target
+      let x = payload.x
+      let y = payload.y
+      target.setAttribute('data-tiles', `${payload.r}:${payload.c}`)
       target.setAttribute('data-x', x)
       target.setAttribute('data-y', y)
       target.style.webkitTransform = target.style.transform = `translate(${x}px, ${y}px)`
@@ -143,9 +168,20 @@ export default {
       tileConfig[index] = state
       this.board.config[tile].config = tileConfig.join('')
     },
+    click_handler (e, tile) {
+      e.preventDefault()
+      EventHub.$emit('Board/action/click', {
+        e,
+        tile
+      })
+    },
     handler (e, tile) {
       // this.open_door(tile)
       e.preventDefault()
+      EventHub.$emit('Board/action/handler', {
+        e,
+        tile
+      })
     }
   },
   mounted () {
@@ -155,20 +191,20 @@ export default {
         inertia: false,
         autoScroll: false
       }).on('dragmove', (event) => {
-        let target = event.target
-        let x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
-        let y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
-        target.style.webkitTransform = target.style.transform = `translate(${x}px, ${y}px)`
-        target.setAttribute('data-x', x)
-        target.setAttribute('data-y', y)
+        this.set_target_position({
+          target: event.target,
+          x: (parseFloat(event.target.getAttribute('data-x')) || 0) + event.dx,
+          y: (parseFloat(event.target.getAttribute('data-y')) || 0) + event.dy
+        })
       }).on('dragend', (event) => {
-        let tile = document.getElementsByClassName('tile')[0]
+        let tile = this.get_tile(0, 0)
         let gridWidth = Math.round(tile.offsetWidth)
         let gridHeight = Math.round(tile.offsetHeight)
         let dataX = Math.round(event.target.getAttribute('data-x'))
         let dataY = Math.round(event.target.getAttribute('data-y'))
         let maxC = self.board.tiles.columns - 1
         let maxR = self.board.tiles.lines - 1
+
         let c = Math.round(dataX / gridWidth) > 0
           ? Math.round(dataX / gridWidth) > maxC ? maxC : Math.round(dataX / gridWidth)
           : 0
@@ -176,15 +212,15 @@ export default {
           ? Math.round(dataY / gridHeight) > maxR ? maxR : Math.round(dataY / gridHeight)
           : 0
 
-        EventHub.$emit('Board/action/move', {
-          tile: `${r}:${c}`,
-          actor: event.target.dataset.actor
-        })
-
-        this.set_target_position({
+        this.snap_target({
           r,
           c,
           target: event.target
+        })
+
+        EventHub.$emit('Board/action/move', {
+          tile: `${r}:${c}`,
+          actor: event.target.dataset.actor
         })
       })
     })
@@ -194,38 +230,34 @@ export default {
 
 <style lang="scss">
   .board {
-  position: relative;
-  width: 100%;
-  max-width: 900px;
-
-  > img {
+    position: relative;
     width: 100%;
-  }
-
-  .tiles_wrapper {
-    bottom: 1.2%;
-    box-sizing: border-box;
-    position: absolute;
-    left: .6%;
-    top: .87%;
-    right: .6%;
-  }
-
-  .draggable {
-    position:absolute;
-    // width: $tileW;
-    // height: $tileH;
-    z-index: 3;
+    max-width: 900px;
 
     > img {
       width: 100%;
     }
-  }
 
-  // &.auto-play {
-  //   .actor { transition: all .2s; }
-  // }
-}
+    .tiles_wrapper {
+      bottom: 1.2%;
+      box-sizing: border-box;
+      position: absolute;
+      left: .6%;
+      top: .87%;
+      right: .6%;
+    }
+
+    .draggable {
+      position:absolute;
+      // width: $tileW;
+      // height: $tileH;
+      z-index: 3;
+
+      > img {
+        width: 100%;
+      }
+    }
+  }
   .tile {
     font-size: 10px;
     width: 3.8%;

@@ -3,16 +3,19 @@
     'draggable': isDraggable(type)
     }, `${handle}--${rotation}`,
      handle, 'actor']"
-    :data-id="id"
+    :data-id="entity_id"
     :data-actor="handle"
     :data-tiles="tiles"
     :data-x="position.x"
     :data-y="position.y"
-    :style="styles"></div>
+    :style="styles"
+    @contextmenu.prevent="handler($event)"
+    ></div>
 </template>
 
 <script>
 import Tile from '../helpers/tile'
+import { EventHub } from '@@/models/event_hub'
 export default {
   data () {
     return {
@@ -30,7 +33,7 @@ export default {
     }
   },
   props: {
-    'id': {
+    'entity_id': {
       type: String
     },
     'handle': {
@@ -53,14 +56,32 @@ export default {
     },
     'board': {
       type: Object
+    },
+    'active': {
+      type: Boolean,
+      default: false
+    }
+  },
+  watch: {
+    tiles () {
+      this.getPos()
     }
   },
   methods: {
     isDraggable (type) {
-      return type === 'hero' || type === 'monster'
+      return (type === 'hero' || type === 'monster') && this.active
     },
     getPos () {
       this.position = Tile(this.board).getTileOffset(this.tiles[0])
+    },
+    handler (e) {
+      e.preventDefault()
+      EventHub.$emit('Actor/click', {
+        e,
+        id: this.entity_id,
+        type: this.type,
+        tile: this.tiles[0]
+      })
     }
   },
   mounted () {
@@ -79,13 +100,19 @@ export default {
 
   // One Tile Actors =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   .barbarian { @include oneTileActor('barbarian') }
-  .elf { @include oneTileActor('elf') }
-  .dwarf { @include oneTileActor('dwarf') }
-  .wizard { @include oneTileActor('wizard') }
-  .orc { @include oneTileActor('orc') }
-  .goblin { @include oneTileActor('goblin') }
   .block { @include oneTileActor('block') }
   .chest { @include oneTileActor('chest') }
+  .chaos { @include oneTileActor('chaos') }
+  .dwarf { @include oneTileActor('dwarf') }
+  .elf { @include oneTileActor('elf') }
+  .fimir { @include oneTileActor('fimir') }
+  .gargoyle { @include oneTileActor('gargoyle') }
+  .goblin { @include oneTileActor('goblin') }
+  .mummy { @include oneTileActor('mummy') }
+  .orc { @include oneTileActor('orc') }
+  .skeleton { @include oneTileActor('skeleton') }
+  .wizard { @include oneTileActor('wizard') }
+  .zombie { @include oneTileActor('zombie') }
 
   // 2x1 Tiles Actors =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   .doubleblock {
@@ -100,6 +127,12 @@ export default {
     &--90 {
       transform-origin: 17px 17px;
     }
+  }
+
+  // 1x3 Tiles Actors =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  .bookcase {
+    @include oneTileActor('bookcase');
+    @include tripleW;
   }
 
   // 2x2 Tiles Actors =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
