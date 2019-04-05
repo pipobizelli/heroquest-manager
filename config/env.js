@@ -14,6 +14,7 @@ module.exports = {
   paths: {
     base_url: (() => {
       return 'http://localhost:3000'
-    })()
+    })(),
+    images: 'https://firebasestorage.googleapis.com/v0/b/heroquest-manager.appspot.com/o/'
   }
 }

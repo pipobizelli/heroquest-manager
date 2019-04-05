@@ -36,7 +36,7 @@
             :tiles="door.tiles"
             handle="door"
             type="doors"
-            :rotation="get_rot(door)">
+            :rotation="get_rot(door.tiles)">
           </actor>
         </template>
         <template v-for="objective in Object.values(quest.objectives)">
@@ -46,7 +46,7 @@
             :tiles="objective.attributes.tiles"
             :handle="objective.label"
             :type="objective.type"
-            :rotation="objective.attributes.rotation">
+            :rotation="0">
           </actor>
         </template>
         <template v-for="(comp, index) in quest.components">
@@ -57,7 +57,7 @@
             :tiles="comp.attributes.tiles"
             :handle="comp.label || comp.type"
             :type="comp.class"
-            :rotation="comp.attributes.rotation">
+            :rotation="get_rot(comp.attributes.tiles)">
           </actor>
         </template>
       </article>
@@ -125,14 +125,17 @@ export default {
     set_board_config (val) {
       this.board.config = val
     },
-    get_rot (actor) {
-      var t1 = actor.tiles[0]
-      var t2 = actor.tiles[1]
-      var rot = 0
-
-      if (Tile(this.board).isTileInColumn(t1, t2)) {
-        rot = 90
+    get_rot (tiles) {
+      if (tiles.length < 2 || tiles.length === 4) {
+        return 0
       }
+
+      let rot = 0
+      tiles.map((t, i) => {
+        if (tiles[i + 1]) {
+          rot = Tile(this.board).isTileInColumn(t, tiles[i + 1]) ? 90 : 0
+        }
+      })
 
       return rot
     },
@@ -249,6 +252,8 @@ export default {
 
     .draggable {
       position:absolute;
+      touch-action: none;
+      user-select: none;
       // width: $tileW;
       // height: $tileH;
       z-index: 3;

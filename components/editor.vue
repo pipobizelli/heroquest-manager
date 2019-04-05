@@ -5,10 +5,33 @@
     <article class="editor__menu" :style="menuStyle" v-show="visible">
       <ul class="editor__actions" v-show="board">
         <li v-for="action in actions" v-show="tiles.length >= action.condition">
-          <a href="#" @click.prevent="add(action.handle)">
-            <font-awesome-icon :icon="action.icon"></font-awesome-icon>
-            <span v-html="action.label"></span>
-          </a>
+          <template v-if="action.sub">
+            <div class="editor__sub">
+              <a href="#" @mouseover="action.show = true">
+                <font-awesome-icon :icon="action.icon"></font-awesome-icon>
+                <span v-html="action.label"></span>
+              </a>
+              <ul class="editor__menu editor__menu--sub" @mouseleave="action.show = false" v-show="action.show">
+                <li class="editor__item" v-for="sub in action.sub">
+                  <a href="#" @click.prevent="add({
+                    type: sub.handle,
+                    collection: action.collection
+                  })">
+                    <img :src="`${image_path}${sub.image}?alt=media`" :alt="sub.handle" v-if="sub.image">
+                    <font-awesome-icon :icon="sub.icon" v-else></font-awesome-icon>
+                    <span v-html="sub.label"></span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </template>
+
+          <template v-else>
+            <a href="#" @click.prevent="add(action.handle)">
+              <font-awesome-icon :icon="action.icon"></font-awesome-icon>
+              <span v-html="action.label"></span>
+            </a>
+          </template>
         </li>
       </ul>
 
@@ -24,6 +47,7 @@
 </template>
 
 <script>
+import Config from '@@/config/env'
 import Board from '@@/components/board'
 import Tile from '@@/helpers/tile'
 import { EventHub } from '@@/models/event_hub'
@@ -37,17 +61,51 @@ export default {
       actors: false,
       menuStyle: '',
       component: {},
-      actions: [{
-        handle: 'blocks',
-        icon: 'plus-square',
-        label: 'add block',
-        condition: 1
-      }, {
-        handle: 'doors',
-        icon: 'plus',
-        label: 'add porta',
-        condition: 2
-      }]
+      image_path: Config.paths.images,
+      actions: {
+        actors: {
+          handle: 'actors',
+          icon: 'skull',
+          label: 'add monster',
+          condition: 1,
+          show: false,
+          collection: 'monsters',
+          sub: []
+        },
+        furniture: {
+          handle: 'furniture',
+          icon: 'couch',
+          label: 'add móveis',
+          condition: 3,
+          show: false,
+          collection: 'furniture',
+          sub: []
+        },
+        blocks: {
+          handle: 'blocks',
+          icon: 'plus-square',
+          label: 'add block',
+          condition: 1
+        },
+        traps: {
+          handle: 'traps',
+          icon: 'exclamation-triangle',
+          label: 'add armardilha',
+          condition: 1
+        },
+        secretDoors: {
+          handle: 'secret-doors',
+          icon: 'eye-slash',
+          label: 'add passagem secreta',
+          condition: 1
+        },
+        doors: {
+          handle: 'doors',
+          icon: 'dungeon',
+          label: 'add porta',
+          condition: 2
+        }
+      }
     }
   },
   props: ['quest'],
@@ -80,6 +138,9 @@ export default {
     })
   },
   methods: {
+    getAllComponents (collection) {
+
+    },
     showActions (data, sub) {
       this.closeMenu()
       let pos = Tile(this.board).getTileOffset(data.tile)
@@ -95,10 +156,11 @@ export default {
       this.board = false
       this.actors = false
     },
-    add (type) {
+    add (data) {
       this.closeMenu()
       EventHub.$emit('Editor/add', {
-        type,
+        type: data.type,
+        collection: data.collection || '',
         tiles: this.tiles
       })
       this.tiles = []
@@ -126,6 +188,7 @@ export default {
       -moz-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.5);
       box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.5);
       border-radius: 3px;
+      max-width: 140px;
 
       &:before {
         content: "";
@@ -139,6 +202,39 @@ export default {
         border-width: 10px 10px 10px 0;
         border-color: transparent lightgray transparent transparent;
       }
+
+      &--sub {
+        // display: none;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: -125px;
+
+        &:before {
+          top: 50%;
+          transform: translateY(-50%);
+        }
+      }
+    }
+
+    &__sub {
+      position: relative;
+    }
+
+    &__item {
+      line-height: 20px;
+
+      img {
+        width: 25px;
+      }
+
+      span {
+        font-size: 12px;
+      }
+    }
+
+    &__item + &__item {
+      margin-top: 10px;
     }
 
     &__close-menu {
@@ -161,6 +257,9 @@ export default {
       a {
         color: black;
         text-decoration: none;
+        display: grid;
+        grid-column-gap: 5px;
+        grid-template-columns: 25px auto;
       }
     }
   }

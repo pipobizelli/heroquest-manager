@@ -1,7 +1,7 @@
 <template>
   <div :class="[{
     'draggable': isDraggable(type)
-    }, `${handle}--${rotation}`,
+    }, `actor--${rotation}`,
      handle, 'actor']"
     :data-id="entity_id"
     :data-actor="handle"
@@ -98,6 +98,12 @@ export default {
     width: 100%;
   }
 
+  .actor {
+    &--90 {
+      transform-origin: 17px 17px;
+    }
+  }
+
   // One Tile Actors =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   .barbarian { @include oneTileActor('barbarian') }
   .block { @include oneTileActor('block') }
@@ -123,10 +129,6 @@ export default {
   .door {
     @include oneTileActor('door');
     @include doubleW;
-
-    &--90 {
-      transform-origin: 17px 17px;
-    }
   }
 
   // 1x3 Tiles Actors =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-

@@ -60,10 +60,14 @@ export default {
   },
   created () {
     EventHub.$on('Editor/add', (payload) => {
+      console.log(payload)
       switch (payload.type) {
         case 'blocks':
         case 'doors':
           this.addMapComp(payload)
+          break
+        default:
+          this.addComponent(payload)
           break
       }
     })
@@ -74,17 +78,25 @@ export default {
         case 'doors':
           this.removeMapComp(payload)
           break
+        default:
+          this.removeComponent(payload)
+          break
       }
     })
   },
-  async mounted () {
+  mounted () {
     this.id = this.$route.params.quest
-    let response = await QuestFacade().getQuest(this.$route.params.quest)
-    this.setup(response.data)
+    this.$nextTick(async () => {
+      let response = await QuestFacade().getQuest(this.$route.params.quest)
+      this.setup(response.data)
+    })
   },
   methods: {
     setup (quest) {
-      this.quest = quest
+      let self = this
+      setTimeout(() => {
+        self.quest = quest
+      }, 500)
     },
     editInfo (node) {
       this.edit[node] = true
@@ -104,9 +116,23 @@ export default {
         id: `comp_${Date.now()}`
       })
     },
+    addComponent (payload) {
+      this.quest.components.push({
+        attributes: {
+          tiles: payload.tiles
+        },
+        collection: payload.collection,
+        id: `${payload.type}_${Date.now()}`,
+        type: payload.type
+      })
+    },
     removeMapComp (payload) {
       let arr = this.quest.map[payload.type].filter(b => b.id !== payload.id)
       this.quest.map[payload.type] = arr
+    },
+    removeComponent (payload) {
+      let arr = this.quest.components.filter(c => c.id !== payload.id)
+      this.quest.components = arr
     }
   }
 }
