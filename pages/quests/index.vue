@@ -39,7 +39,8 @@ export default {
         objectives: {},
         map: {
           doors: [],
-          blocks: []
+          blocks: [],
+          stairway: []
         }
       }
     }

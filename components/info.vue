@@ -9,11 +9,12 @@
 </template>
 
 <script>
+import Config from '@@/config/env'
 export default {
   props: ['data'],
   computed: {
     image_path () {
-      return 'https://firebasestorage.googleapis.com/v0/b/heroquest-manager.appspot.com/o/'
+      return Config.paths.images
     }
   }
 }

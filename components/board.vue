@@ -39,6 +39,16 @@
             :rotation="get_rot(door.tiles)">
           </actor>
         </template>
+        <template v-for="stairs in quest.map.stairway">
+          <actor
+            :board="board"
+            :entity_id="stairs.id"
+            :tiles="stairs.tiles"
+            handle="stairway"
+            type="stairway"
+            :rotation="stairs.rotate || 0">
+          </actor>
+        </template>
         <template v-for="objective in Object.values(quest.objectives)">
           <actor
             :board="board"
@@ -46,7 +56,7 @@
             :tiles="objective.attributes.tiles"
             :handle="objective.label"
             :type="objective.type"
-            :rotation="0">
+            :rotation="objective.rotate || 0">
           </actor>
         </template>
         <template v-for="(comp, index) in quest.components">
@@ -56,8 +66,8 @@
             :entity_id="comp.entity_id || comp.id"
             :tiles="comp.attributes.tiles"
             :handle="comp.label || comp.type"
-            :type="comp.class"
-            :rotation="get_rot(comp.attributes.tiles)">
+            :type="comp.class || comp.collection"
+            :rotation="comp.rotate || get_rot(comp.attributes.tiles)">
           </actor>
         </template>
       </article>
@@ -72,7 +82,7 @@ import HeroquestBoard from '@@/data/heroquest.json'
 import Actor from '@@/components/actor.vue'
 import Tile from '@@/helpers/tile'
 import { EventHub } from '@@/models/event_hub'
-import { image } from '@@/helpers/media'
+import Config from '@@/config/env'
 // import Quest from '../data/the_maze'
 
 export default {
@@ -97,7 +107,8 @@ export default {
         objectives: {},
         map: {
           doors: [],
-          blocks: []
+          blocks: [],
+          stairway: []
         }
       }
     },
@@ -110,17 +121,12 @@ export default {
       default: []
     }
   },
-  watch: {
-    'board.config' (val, oldVal) {
-      this.set_board_config(val)
-    }
-  },
   components: {
     Actor
   },
   methods: {
     get_image (img) {
-      return image(img)
+      return `${Config.paths.images}${img}?alt=media`
     },
     set_board_config (val) {
       this.board.config = val

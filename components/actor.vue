@@ -9,7 +9,8 @@
     :data-x="position.x"
     :data-y="position.y"
     :style="styles"
-    @contextmenu.prevent="handler($event)"
+    @click="clickActor"
+    @contextmenu.prevent="handler"
     ></div>
 </template>
 
@@ -74,10 +75,17 @@ export default {
     getPos () {
       this.position = Tile(this.board).getTileOffset(this.tiles[0])
     },
-    handler (e) {
-      e.preventDefault()
+    clickActor (e) {
       EventHub.$emit('Actor/click', {
         e,
+        id: this.entity_id,
+        type: this.type,
+        tile: this.tiles[0]
+      })
+    },
+    handler (e) {
+      e.preventDefault()
+      EventHub.$emit('Actor/handler', {
         id: this.entity_id,
         type: this.type,
         tile: this.tiles[0]
@@ -105,20 +113,28 @@ export default {
   }
 
   // One Tile Actors =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-  .barbarian { @include oneTileActor('barbarian') }
-  .block { @include oneTileActor('block') }
-  .chest { @include oneTileActor('chest') }
-  .chaos { @include oneTileActor('chaos') }
-  .dwarf { @include oneTileActor('dwarf') }
-  .elf { @include oneTileActor('elf') }
-  .fimir { @include oneTileActor('fimir') }
-  .gargoyle { @include oneTileActor('gargoyle') }
-  .goblin { @include oneTileActor('goblin') }
-  .mummy { @include oneTileActor('mummy') }
-  .orc { @include oneTileActor('orc') }
-  .skeleton { @include oneTileActor('skeleton') }
-  .wizard { @include oneTileActor('wizard') }
-  .zombie { @include oneTileActor('zombie') }
+  .block { @include oneTileActor('block'); }
+  .chest { @include oneTileActor('chest'); }
+  .throne { @include oneTileActor('throne'); }
+  .secretdoor { @include oneTileActor('secretdoor'); }
+  .speartrap { @include oneTileActor('speartrap'); }
+  .pittrap { @include oneTileActor('pittrap'); }
+
+  // Heroes
+  .barbarian { @include oneTileActor('barbarian'); background-size: 85%; }
+  .dwarf { @include oneTileActor('dwarf'); background-size: 85%; }
+  .elf { @include oneTileActor('elf'); background-size: 85%; }
+  .wizard { @include oneTileActor('wizard'); background-size: 85%; }
+
+  // Monters
+  .chaos { @include oneTileActor('chaos'); background-size: 85%; }
+  .fimir { @include oneTileActor('fimir'); background-size: 85%; }
+  .gargoyle { @include oneTileActor('gargoyle'); background-size: 85%; }
+  .goblin { @include oneTileActor('goblin'); background-size: 85%; }
+  .mummy { @include oneTileActor('mummy'); background-size: 85%; }
+  .orc { @include oneTileActor('orc'); background-size: 85%; }
+  .skeleton { @include oneTileActor('skeleton'); background-size: 85%; }
+  .zombie { @include oneTileActor('zombie'); background-size: 85%; }
 
   // 2x1 Tiles Actors =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   .doubleblock {
@@ -137,6 +153,21 @@ export default {
     @include tripleW;
   }
 
+  .cupboard {
+    @include oneTileActor('cupboard');
+    @include tripleW;
+  }
+
+  .fireplace {
+    @include oneTileActor('fireplace');
+    @include tripleW;
+  }
+
+  .weaponsrack {
+    @include oneTileActor('weaponsrack');
+    @include tripleW;
+  }
+
   // 2x2 Tiles Actors =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   .stairway {
     @include oneTileActor('stairway');
@@ -149,9 +180,29 @@ export default {
     @include oneTileActor('table');
     @include doubleH;
     @include tripleW;
+  }
 
-    &--90 {
-      transform-origin: 34px 34px;
-    }
+  .tomb {
+    @include oneTileActor('tomb');
+    @include doubleH;
+    @include tripleW;
+  }
+
+  .rack {
+    @include oneTileActor('rack');
+    @include doubleH;
+    @include tripleW;
+  }
+
+  .alchemistsbench {
+    @include oneTileActor('alchemistsbench');
+    @include doubleH;
+    @include tripleW;
+  }
+
+  .sorcererstable {
+    @include oneTileActor('sorcererstable');
+    @include doubleH;
+    @include tripleW;
   }
 </style>

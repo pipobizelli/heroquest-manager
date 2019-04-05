@@ -4,8 +4,8 @@ export async function Get (id) {
     let quest = await Adapter().getData('quests', id)
     return quest
   } catch (e) {
-    console.log('[model] quest', e)
-    return {}
+    console.log('[model] quest')
+    return e
   }
 }
 
@@ -21,8 +21,8 @@ export async function GetAll () {
     })
     return quests
   } catch (e) {
-    console.log('[model] quest', e)
-    return {}
+    console.log('[model] quest')
+    return e
   }
 }
 
@@ -32,7 +32,7 @@ export async function Add (payload) {
     return response
   } catch (e) {
     console.log('[model] quest add')
-    return {}
+    return e
   }
 }
 
@@ -42,6 +42,6 @@ export async function Update (payload) {
     return response
   } catch (e) {
     console.log('[model] quest update')
-    return {}
+    return e
   }
 }

@@ -25,7 +25,7 @@
       </div>
     </article>
     <editor :quest="quest"></editor>
-    <button type="button" name="quest_update" @click="update()">Salvar</button>
+    <!-- <button type="button" name="quest_update" @click="update()">Salvar</button> -->
   </section>
 </template>
 
@@ -50,7 +50,8 @@ export default {
         objectives: {},
         map: {
           doors: [],
-          blocks: []
+          blocks: [],
+          stairway: []
         }
       }
     }
@@ -58,12 +59,17 @@ export default {
   components: {
     Editor
   },
+  watch: {
+    'quest.name': (val) => {
+      // console.log(val)
+    }
+  },
   created () {
     EventHub.$on('Editor/add', (payload) => {
-      console.log(payload)
       switch (payload.type) {
         case 'blocks':
         case 'doors':
+        case 'stairway':
           this.addMapComp(payload)
           break
         default:
@@ -76,6 +82,7 @@ export default {
       switch (payload.type) {
         case 'blocks':
         case 'doors':
+        case 'stairway':
           this.removeMapComp(payload)
           break
         default:
@@ -94,12 +101,10 @@ export default {
   methods: {
     setup (quest) {
       let self = this
-      setTimeout(() => {
-        self.quest = quest
-      }, 500)
+      self.quest = quest
     },
     editInfo (node) {
-      this.edit[node] = true
+      this.edit[node] = !this.edit[node]
     },
     async update () {
       this.edit.name = false
@@ -115,6 +120,7 @@ export default {
         tiles: payload.tiles,
         id: `comp_${Date.now()}`
       })
+      this.update()
     },
     addComponent (payload) {
       this.quest.components.push({
@@ -125,14 +131,17 @@ export default {
         id: `${payload.type}_${Date.now()}`,
         type: payload.type
       })
+      this.update()
     },
     removeMapComp (payload) {
       let arr = this.quest.map[payload.type].filter(b => b.id !== payload.id)
       this.quest.map[payload.type] = arr
+      this.update()
     },
     removeComponent (payload) {
       let arr = this.quest.components.filter(c => c.id !== payload.id)
       this.quest.components = arr
+      this.update()
     }
   }
 }
