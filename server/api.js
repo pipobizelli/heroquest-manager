@@ -1,6 +1,6 @@
 import express from 'express'
 import { GetSession, AddSession } from '../api/controllers/session'
-import { GetQuest, ListQuest, AddQuest, UpdateQuest } from '../api/controllers/quests'
+import { GetQuest, ListQuest, AddQuest, UpdateQuest, RemoveQuest } from '../api/controllers/quests'
 import { GetCharacter, ListCharacter } from '../api/controllers/characters'
 import { ListMonsters, GetMonster } from '../api/controllers/monsters'
 import { ListFurniture, GetFurniture } from '../api/controllers/furniture'
@@ -23,15 +23,20 @@ app.post('/sessions/add', async (req, res, next) => {
 })
 
 // Quests ==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
-app.get('/quests', (req, res) => { ListQuest(req, res) })
-app.get('/quests/:id', (req, res) => { GetQuest(req, res) })
-app.post('/quests/add', async (req, res, next) => {
-  try { await AddQuest(req, res) } catch (e) { next(e) }
-}, async (req, res) => {
-  res.send('Add Session Error')
+app.get('/quests', (req, res) => {
+  try { ListQuest(req, res) } catch (e) { res.send('ListQuest Error') }
 })
-app.post('/quests/update', async (req, res, next) => {
-  try { await UpdateQuest(req, res) } catch (e) { res.send('Update Session Error') }
+app.get('/quests/:id', (req, res) => {
+  try { GetQuest(req, res) } catch (e) { res.send('GetQuest Error') }
+})
+app.post('/quests/add', async (req, res, next) => {
+  try { await AddQuest(req, res) } catch (e) { res.send('AddQuest Error') }
+})
+app.post('/quests/update', async (req, res) => {
+  try { await UpdateQuest(req, res) } catch (e) { res.send('UpdateQuest Error') }
+})
+app.delete('/quests/remove', async (req, res) => {
+  try { await RemoveQuest(req, res) } catch (e) { res.send('RemoveQuest Error') }
 })
 
 // Characters ==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==

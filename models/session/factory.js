@@ -3,7 +3,7 @@ import { Add, Get, AddEntities } from './rest'
 export async function GetSession (sessionId) {
   try {
     let session = await Get(sessionId)
-    let quest = await Adapter().getData('quests', session.quest)
+    let quest = await Adapter().getDoc('quests', session.quest)
     let entities = await Adapter().queryDocs('session_entities', ['session_id', '==', sessionId])
     let components = entities.map(e => {
       return {
@@ -30,7 +30,7 @@ export async function GetSession (sessionId) {
 export async function AddSession (session) {
   // Criar as entities juntando os personagens e components
   try {
-    let quest = await Adapter().getData('quests', session.quest)
+    let quest = await Adapter().getDoc('quests', session.quest)
     let components = await GetComponents(quest)
     let characters = await GetCharaceters(session.slots)
     let heroes = ValidateCharacters(characters)
@@ -52,7 +52,7 @@ export async function AddSession (session) {
 export async function GetComponents (quest) {
   try {
     let components = quest.components.map(async (c) => {
-      let comp = await Adapter().getData(c.collection, c.type)
+      let comp = await Adapter().getDoc(c.collection, c.type)
       return {
         ...comp,
         attributes: {
@@ -71,8 +71,8 @@ export async function GetComponents (quest) {
 export async function GetCharaceters (slots) {
   try {
     let characters = slots.map(async (slot, index) => {
-      let char = await Adapter().getData('characters', slot.character)
-      let hero = await Adapter().getData('heroes', char.type)
+      let char = await Adapter().getDoc('characters', slot.character)
+      let hero = await Adapter().getDoc('heroes', char.type)
       return {
         ...hero,
         ...char,

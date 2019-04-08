@@ -4,7 +4,7 @@
     <div class="editor__close-menu" @click="clearTiles" @contextmenu.prevent="clearTiles" v-show="visible"></div>
     <article class="editor__menu" :style="menuStyle" v-show="visible">
       <ul class="editor__assets" v-show="board">
-        <li v-for="asset in assets" :class="{'editor__asset': asset.condition.indexOf(tiles.length) >= 0}" v-show="asset.condition.indexOf(tiles.length) >= 0">
+        <li v-for="asset in assets" :class="{'editor__asset': asset.condition.indexOf(tiles.length) >= 0}" v-if="asset.condition.indexOf(tiles.length) >= 0">
           <template v-if="asset.sub">
             <div class="editor__sub">
               <a href="#" @mouseover="asset.show = true">
@@ -88,7 +88,7 @@ export default {
           handle: 'blocks',
           icon: 'th',
           label: 'add bloco',
-          condition: [1]
+          condition: [1, 2]
         },
         traps: {
           handle: 'traps',
@@ -123,7 +123,6 @@ export default {
   },
   created () {
     EventHub.$on('Board/action/click', (e) => {
-      console.log(e)
       let tile = e.tile
       if (this.tiles.indexOf(tile) >= 0) {
         this.tiles = this.tiles.filter(t => t !== tile)

@@ -1,7 +1,7 @@
 import Adapter from '../../adapters/firebase'
 export async function Get (id) {
   try {
-    let furniture = await Adapter().getData('furniture', id)
+    let furniture = await Adapter().getDoc('furniture', id)
     return furniture
   } catch (e) {
     console.log('[model] furniture')

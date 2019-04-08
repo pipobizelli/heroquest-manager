@@ -1,7 +1,7 @@
 import Adapter from '../../adapters/firebase'
 export async function Get (id) {
   try {
-    let quest = await Adapter().getData('quests', id)
+    let quest = await Adapter().getDoc('quests', id)
     return quest
   } catch (e) {
     console.log('[model] quest')
@@ -42,6 +42,16 @@ export async function Update (payload) {
     return response
   } catch (e) {
     console.log('[model] quest update')
+    return e
+  }
+}
+
+export async function Remove (id) {
+  try {
+    await Adapter().removeDoc('quests', id)
+    return true
+  } catch (e) {
+    console.log('[model] quest remove')
     return e
   }
 }

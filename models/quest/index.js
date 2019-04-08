@@ -1,4 +1,4 @@
-import { Get, GetAll, Add, Update } from './rest'
+import { Get, GetAll, Add, Update, Remove } from './rest'
 
 // export let Factory = {
 //   AddSession,
@@ -9,5 +9,6 @@ export let Rest = {
   Get,
   GetAll,
   Add,
-  Update
+  Update,
+  Remove
 }

@@ -6,6 +6,9 @@
       <ul class="quests__list">
         <li class="quests__item" v-for="quest in quests">
           <nuxt-link :to="`/quests/${quest.id}`" v-html="quest.data.name"></nuxt-link>
+          <a href="#" @click.prevent="removeQuest(quest.id)">
+            <font-awesome-icon icon="trash-alt"></font-awesome-icon>
+          </a>
         </li>
       </ul>
     </article>
@@ -31,6 +34,7 @@ import QuestFacade from '@@/facades/quest'
 export default {
   data () {
     return {
+      errors: [],
       quests: [],
       quest: {
         name: '',
@@ -46,13 +50,29 @@ export default {
     }
   },
   async created () {
-    let response = await QuestFacade().getAllQuests()
-    this.quests = response.data
+    this.getAllQuests()
   },
   methods: {
+    async getAllQuests () {
+      let response = await QuestFacade().getAllQuests()
+      this.quests = response.data
+    },
     async addNewQuest () {
-      let newQuest = await QuestFacade().addQuest(this.quest)
-      this.$router.replace({ path: `quests/${newQuest.data}` })
+      if (this.name) {
+        let newQuest = await QuestFacade().addQuest(this.quest)
+        this.$router.replace({ path: `quests/${newQuest.data}` })
+      } else {
+        this.errors.push({
+          error: 'quest-name',
+          message: 'O campo nome não pode esta vazio!'
+        })
+      }
+    },
+    async removeQuest (id) {
+      let response = await QuestFacade().removeQuest(id)
+      if (response) {
+        this.getAllQuests()
+      }
     }
   }
 }

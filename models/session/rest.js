@@ -2,7 +2,7 @@ import Adapter from '../../adapters/firebase'
 
 export async function Get (id) {
   try {
-    let response = await Adapter().getData('sessions', id)
+    let response = await Adapter().getDoc('sessions', id)
     return response
   } catch (e) {
     console.log('[model] session get')

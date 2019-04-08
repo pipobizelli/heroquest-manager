@@ -39,3 +39,13 @@ export async function UpdateQuest (req, res) {
     res.json(e)
   }
 }
+
+export async function RemoveQuest (req, res) {
+  try {
+    let response = await Rest.Remove(req.body.id)
+    res.json(response)
+  } catch (e) {
+    console.log('[controller] RemoveQuest')
+    res.json(e)
+  }
+}

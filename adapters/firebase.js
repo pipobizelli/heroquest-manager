@@ -6,13 +6,13 @@ export default () => {
       return Firebase.firestore()
     },
 
-    async getData (collection, id) {
+    async getDoc (collection, id) {
       try {
         let db = this.getDb()
         var result = await db.collection(collection).doc(id).get()
         return result.data()
       } catch (e) {
-        console.log('[adapter] getData')
+        console.log('[adapter] getDoc')
         return {}
       }
     },
@@ -78,6 +78,17 @@ export default () => {
         return result
       } catch (e) {
         console.log('[adapter] updateDoc')
+        return e
+      }
+    },
+
+    async removeDoc (collection, id) {
+      try {
+        let db = this.getDb()
+        let result = await db.collection(collection).doc(id).delete()
+        return result
+      } catch (e) {
+        console.log('[adapter] removeDoc')
         return e
       }
     }

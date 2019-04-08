@@ -1,9 +1,10 @@
 import axios from 'axios'
+import Config from '../config/env'
 export default () => {
   return {
     async getQuest (id) {
       try {
-        let response = await axios.get(`http://localhost:3000/api/quests/${id}`)
+        let response = await axios.get(`${Config.paths.base_url}/api/quests/${id}`)
         return response
       } catch (e) {
         console.log('[facade] quest getQuest')
@@ -13,17 +14,17 @@ export default () => {
 
     async getAllQuests () {
       try {
-        let response = await axios.get(`http://localhost:3000/api/quests`)
+        let response = await axios.get(`${Config.paths.base_url}/api/quests`)
         return response
       } catch (e) {
-        console.log('[facade] quest getAll')
+        console.log('[facade] quest getAllQuests')
         return e
       }
     },
 
     async addQuest (quest) {
       try {
-        let response = await axios.post('http://localhost:3000/api/quests/add', quest)
+        let response = await axios.post(`${Config.paths.base_url}/api/quests/add`, quest)
         return response
       } catch (e) {
         console.log('[facade] quest addQuest')
@@ -33,10 +34,20 @@ export default () => {
 
     async updateQuest (quest) {
       try {
-        let response = await axios.post('http://localhost:3000/api/quests/update', quest)
+        let response = await axios.post(`${Config.paths.base_url}/api/quests/update`, quest)
         return response
       } catch (e) {
-        console.log('[facade] quest addQuest')
+        console.log('[facade] quest updateQuest')
+        return e
+      }
+    },
+
+    async removeQuest (id) {
+      try {
+        let response = await axios.delete(`${Config.paths.base_url}/api/quests/remove`, { data: { id: id } })
+        return response
+      } catch (e) {
+        console.log('[facade] removeQuest')
         return e
       }
     }

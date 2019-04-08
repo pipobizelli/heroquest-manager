@@ -3,7 +3,7 @@ export default () => {
   return {
     async get (collection, id) {
       try {
-        let actor = await Adapter().getData(collection, id)
+        let actor = await Adapter().getDoc(collection, id)
         return actor
       } catch (e) {
         console.log('[model] actors', e)
