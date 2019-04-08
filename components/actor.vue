@@ -11,7 +11,11 @@
     :style="styles"
     @click="clickActor"
     @contextmenu.prevent="handler"
-    ></div>
+    >
+      <div class="actor__tile" v-for="tile in sortedTiles"
+      @click="clickActorTile(tile)"
+      @contextmenu.prevent="handlerActorTile(tile)"></div>
+  </div>
 </template>
 
 <script>
@@ -20,6 +24,7 @@ import { EventHub } from '@@/models/event_hub'
 export default {
   data () {
     return {
+      sortedTiles: [],
       position: {
         x: 0,
         y: 0
@@ -69,6 +74,20 @@ export default {
     }
   },
   methods: {
+    clickActorTile (tile) {
+      EventHub.$emit('Actor/tile/click', {
+        id: this.entity_id,
+        type: this.type,
+        tile
+      })
+    },
+    handlerActorTile (tile) {
+      EventHub.$emit('Actor/tile/handler', {
+        id: this.entity_id,
+        type: this.type,
+        tile
+      })
+    },
     isDraggable (type) {
       return (type === 'hero' || type === 'monster') && this.active
     },
@@ -93,6 +112,7 @@ export default {
     }
   },
   mounted () {
+    this.sortedTiles = this.tiles.slice(0).sort()
     this.getPos()
   }
 }
@@ -145,6 +165,8 @@ export default {
   .door {
     @include oneTileActor('door');
     @include doubleW;
+    display: grid;
+    grid-template-columns: 50% 50%;
   }
 
   // 1x3 Tiles Actors =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-

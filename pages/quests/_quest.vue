@@ -101,7 +101,9 @@ export default {
   methods: {
     setup (quest) {
       let self = this
-      self.quest = quest
+      setTimeout(() => {
+        self.quest = quest
+      }, 100)
     },
     editInfo (node) {
       this.edit[node] = !this.edit[node]

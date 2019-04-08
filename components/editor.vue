@@ -3,7 +3,17 @@
     <board :quest="quest" :tiles_disabled="tiles"></board>
     <div class="editor__close-menu" @click="clearTiles" @contextmenu.prevent="clearTiles" v-show="visible"></div>
     <article class="editor__menu" :style="menuStyle" v-show="visible">
-      <ul class="editor__assets" v-show="board">
+      <!-- Actors Options -->
+      <ul class="editor__assets" v-if="actors">
+        <li class="editor__asset">
+          <a href="#" @click.prevent="remove()">
+            <font-awesome-icon icon="trash-alt"></font-awesome-icon> remover
+          </a>
+        </li>
+      </ul>
+
+      <!-- Board Options -->
+      <ul class="editor__assets" v-if="board">
         <li v-for="asset in assets" :class="{'editor__asset': asset.condition.indexOf(tiles.length) >= 0}" v-if="asset.condition.indexOf(tiles.length) >= 0">
           <template v-if="asset.sub">
             <div class="editor__sub">
@@ -33,14 +43,6 @@
               <span v-html="asset.label"></span>
             </a>
           </template>
-        </li>
-      </ul>
-
-      <ul class="editor__assets" v-show="actors">
-        <li class="editor__asset">
-          <a href="#" @click.prevent="remove()">
-            <font-awesome-icon icon="trash-alt"></font-awesome-icon> remover
-          </a>
         </li>
       </ul>
     </article>
@@ -132,27 +134,47 @@ export default {
     })
 
     EventHub.$on('Board/action/handler', (e) => {
-      this.showActions(e, 'board')
+      this.showOptions(e, 'board')
       if (this.tiles.length < 1) {
         this.tiles = [e.tile]
       }
     })
 
-    EventHub.$on('Actor/click', (e) => {
-      console.log(e)
-      // this.component = {
-      //   id: e.id,
-      //   type: e.type
-      // }
-    })
+    // EventHub.$on('Actor/click', (e) => {
+    //   console.log(e)
+    // })
 
     EventHub.$on('Actor/handler', (e) => {
-      this.showActions(e, 'actors')
-      this.component = {
-        id: e.id,
-        type: e.type
+      if (e.type !== 'doors') {
+        this.showOptions(e, 'actors')
+        this.component = {
+          id: e.id,
+          type: e.type
+        }
       }
     })
+
+    EventHub.$on('Actor/tile/handler', (e) => {
+      let tile = e.tile
+      if (this.tiles.indexOf(tile) >= 0) {
+        this.tiles = this.tiles.filter(t => t !== tile)
+      } else {
+        this.tiles.push(tile)
+        this.showOptions(e, 'both')
+        this.component = {
+          id: e.id,
+          type: e.type
+        }
+      }
+    })
+
+    // EventHub.$on('Actor/tile/click', (tile) => {
+    //   if (this.tiles.indexOf(tile) >= 0) {
+    //     this.tiles = this.tiles.filter(t => t !== tile)
+    //   } else {
+    //     this.tiles.push(tile)
+    //   }
+    // })
 
     // Load assets
     this.getMonsters()
@@ -167,11 +189,21 @@ export default {
       let response = await FurnitureFacade().getAllFurniture()
       this.assets.furniture.sub = response.data.map(r => r.data)
     },
-    showActions (data, sub) {
+    showOptions (data, sub) {
       this.closeMenu()
       let pos = Tile(this.board).getTileOffset(data.tile)
-      this.showMenu(sub)
       this.menuStyle = `top: ${pos.y}px; left: ${pos.x}px;`
+
+      if (sub !== 'both') {
+        this.showMenu(sub)
+      } else {
+        this.showAllMenus()
+      }
+    },
+    showAllMenus (sub) {
+      this.visible = true
+      this.board = true
+      this.actors = true
     },
     showMenu (sub) {
       this.visible = true
@@ -284,6 +316,12 @@ export default {
         grid-column-gap: 10px;
         grid-template-columns: auto 1fr;
       }
+    }
+
+    &__assets + &__assets {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 5px dotted gray;
     }
 
     &__asset + &__asset {
