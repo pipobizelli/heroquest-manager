@@ -61,7 +61,7 @@
         </template>
         <template v-for="(comp, index) in quest.components">
           <actor
-            :active="active_actor == comp.label"
+            :active="active_actor == comp.entity_id"
             :board="board"
             :entity_id="comp.entity_id || comp.id"
             :tiles="comp.attributes.tiles"

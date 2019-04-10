@@ -1,10 +1,10 @@
 <template>
   <section class="session">
     <article class="session__turns">
-      <turns :heroes="initiative.heroes" :monsters="initiative.monsters"></turns>
+      <turns :components="initiative" :active="active_turn"></turns>
     </article>
     <article class="session__board">
-      <board :quest="quest" active_actor="orc"></board>
+      <board :quest="quest" :active_actor="active_actor"></board>
     </article>
   </section>
 </template>
@@ -28,15 +28,17 @@ export default {
       turns: [],
       slots: [],
       active_turn: 0,
-      initiative: {
-        heroes: [],
-        monsters: []
-      }
+      active_actor: '',
+      initiative: []
     }
   },
   async created () {
     EventHub.$on('Board/action/move', (data) => {
       console.log(data)
+    })
+
+    EventHub.$on('Actor/handler', (e) => {
+      console.log(e)
     })
 
     try {
@@ -61,10 +63,10 @@ export default {
     },
     setInitiative () {
       // Heroes first at all
-      this.initiative.heroes = this.quest.components.filter(comp => comp.slot >= 0)
-
+      this.initiative = this.quest.components.filter(comp => comp.slot >= 0)
       // Monsters after
-      this.initiative.monsters = this.quest.components.filter(comp => comp.class === 'monster')
+      this.initiative = this.initiative.concat(this.quest.components.filter(comp => comp.class === 'monster'))
+      this.active_actor = this.initiative[this.active_turn].entity_id
     }
   },
   components: {
@@ -78,5 +80,6 @@ export default {
 .session {
   display: grid;
   grid-template-columns: 15% auto;
+  grid-gap: 10px;
 }
 </style>
