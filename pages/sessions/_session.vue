@@ -1,7 +1,11 @@
 <template>
-  <section class="session--active">
-    <turns :heroes="initiative.heroes" :monsters="initiative.monsters"></turns>
-    <board :quest="quest" :active_actor="'barbarian'"></board>
+  <section class="session">
+    <article class="session__turns">
+      <turns :heroes="initiative.heroes" :monsters="initiative.monsters"></turns>
+    </article>
+    <article class="session__board">
+      <board :quest="quest" active_actor="orc"></board>
+    </article>
   </section>
 </template>
 
@@ -44,10 +48,11 @@ export default {
     }
   },
   methods: {
-    setup (data) {
-      this.quest = data.data.quest
-      this.turns = data.data.turns
-      this.slots = data.data.slots
+    setup ({data}) {
+      this.quest = data.quest
+      this.turns = data.turns
+      this.slots = data.slots
+      this.active_turn = data.turns.length
       this.setInitiative()
     },
     setTurn (action) {
@@ -59,7 +64,7 @@ export default {
       this.initiative.heroes = this.quest.components.filter(comp => comp.slot >= 0)
 
       // Monsters after
-      this.initiative.monsters = this.quest.components.filter(comp => comp.class !== 'hero')
+      this.initiative.monsters = this.quest.components.filter(comp => comp.class === 'monster')
     }
   },
   components: {
@@ -69,5 +74,9 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="scss">
+.session {
+  display: grid;
+  grid-template-columns: 15% auto;
+}
 </style>

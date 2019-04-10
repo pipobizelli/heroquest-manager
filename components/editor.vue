@@ -68,6 +68,12 @@ export default {
       component: {},
       image_path: Config.paths.images,
       assets: {
+        slots: {
+          handle: 'slots',
+          icon: 'map-marker-alt',
+          label: 'add slot',
+          condition: [1]
+        },
         monsters: {
           handle: 'monsters',
           icon: 'skull',
@@ -86,6 +92,12 @@ export default {
           collection: 'furniture',
           sub: []
         },
+        doors: {
+          handle: 'doors',
+          icon: 'dungeon',
+          label: 'add porta',
+          condition: [2]
+        },
         blocks: {
           handle: 'blocks',
           icon: 'th',
@@ -103,12 +115,6 @@ export default {
           icon: 'eye-slash',
           label: 'add passagem secreta',
           condition: [1]
-        },
-        doors: {
-          handle: 'doors',
-          icon: 'dungeon',
-          label: 'add porta',
-          condition: [2]
         },
         stairway: {
           handle: 'stairway',
@@ -145,7 +151,7 @@ export default {
     // })
 
     EventHub.$on('Actor/handler', (e) => {
-      if (e.type !== 'doors') {
+      if (e.type !== 'doors' && e.type !== 'stairway') {
         this.showOptions(e, 'actors')
         this.component = {
           id: e.id,

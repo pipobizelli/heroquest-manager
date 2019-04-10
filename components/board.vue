@@ -114,11 +114,15 @@ export default {
     },
     active_actor: {
       type: String,
-      default: ''
+      default () {
+        return ''
+      }
     },
     tiles_disabled: {
       type: Array,
-      default: []
+      default () {
+        return []
+      }
     }
   },
   components: {

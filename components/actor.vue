@@ -195,6 +195,8 @@ export default {
     @include oneTileActor('stairway');
     @include doubleH;
     @include doubleW;
+    display: grid;
+    grid-template-columns: 50% 50%;
   }
 
   // 2x3 Tiles Actors =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
