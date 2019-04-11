@@ -41,6 +41,7 @@ export default {
   &__label {
     line-height: 25px;
     text-decoration: none;
+    color: gray;
 
     &:hover {
       text-decoration: underline;

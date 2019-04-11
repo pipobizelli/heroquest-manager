@@ -8,7 +8,9 @@
             },{
               'tile--pathconfig': showPathConfig
             },{
-              'tile--disabled': tiles_disabled.indexOf(`${l}:${c}`) >= 0
+              'tile--disabled': quest.map.disables.indexOf(`${l}:${c}`) >= 0
+            },{
+              'tile--selected': tiles_selected.indexOf(`${l}:${c}`) >= 0
             },`tileconfig-${get_tile_config(`${l}:${c}`)}`, 'tile']"
           :data-tile="`${l}:${c}`"
           @click="click_handler($event, `${l}:${c}`)"
@@ -61,7 +63,7 @@
         </template>
         <template v-for="(comp, index) in quest.components">
           <actor
-            :active="active_actor == comp.entity_id"
+            :active="active_actor == comp.entity_id || active_actor == comp.class"
             :board="board"
             :entity_id="comp.entity_id || comp.id"
             :tiles="comp.attributes.tiles"
@@ -81,8 +83,9 @@ import interact from 'interactjs'
 import HeroquestBoard from '@@/data/heroquest.json'
 import Actor from '@@/components/actor.vue'
 import Tile from '@@/helpers/tile'
-import { EventHub } from '@@/models/event_hub'
 import Config from '@@/config/env'
+import DefaultQuest from '@@/data/quest.json'
+import { EventHub } from '@@/models/event_hub'
 // import Quest from '../data/the_maze'
 
 export default {
@@ -102,14 +105,8 @@ export default {
   props: {
     quest: {
       type: Object,
-      default: {
-        components: [],
-        objectives: {},
-        map: {
-          doors: [],
-          blocks: [],
-          stairway: []
-        }
+      default () {
+        return DefaultQuest
       }
     },
     active_actor: {
@@ -118,7 +115,7 @@ export default {
         return ''
       }
     },
-    tiles_disabled: {
+    tiles_selected: {
       type: Array,
       default () {
         return []
@@ -285,8 +282,12 @@ export default {
       width: 3.95%;
     }
 
-    &--disabled {
+    &--selected {
       background-color: rgba(200,200,200,.5);
+    }
+
+    &--disabled {
+      background-color: rgba(200,200,200,.8);
     }
 
     &--green {

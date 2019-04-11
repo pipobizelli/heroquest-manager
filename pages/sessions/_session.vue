@@ -1,7 +1,11 @@
 <template>
   <section class="session">
-    <article class="session__turns">
+    <article class="session__info">
       <turns :components="initiative" :active="active_turn"></turns>
+      <section class="session__quest container">
+        <h2 class="session__quest__title" v-html="quest.title"></h2>
+        <h2 class="session__quest__description" v-html="quest.description"></h2>
+      </section>
     </article>
     <article class="session__board">
       <board :quest="quest" :active_actor="active_actor"></board>
@@ -14,17 +18,11 @@ import { EventHub } from '@@/models/event_hub'
 import Board from '@@/components/board.vue'
 import Turns from '@@/components/turns.vue'
 import SessionFacade from '@@/facades/session'
+import DefaultQuest from '@@/data/quest.json'
 export default {
   data () {
     return {
-      quest: {
-        components: [],
-        objectives: {},
-        map: {
-          doors: [],
-          blocks: []
-        }
-      },
+      quest: DefaultQuest,
       turns: [],
       slots: [],
       active_turn: 0,
@@ -77,9 +75,24 @@ export default {
 </script>
 
 <style lang="scss">
+@import '~assets/styles/base';
 .session {
   display: grid;
   grid-template-columns: 15% auto;
   grid-gap: 10px;
+
+  &__quest {
+    &__title {
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    &__description {
+      border-top: 1px solid lightgray;
+      font-size: 12px;
+      margin-top: 10px;
+      padding-top: 10px;
+    }
+  }
 }
 </style>

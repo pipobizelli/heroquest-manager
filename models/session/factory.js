@@ -15,6 +15,8 @@ export async function GetSession (sessionId) {
     return {
       ...session,
       quest: {
+        title: quest.name,
+        description: quest.description,
         objectives: {
           ...quest.objectives
         },

@@ -1,7 +1,7 @@
 <template>
-  <section class="turns">
+  <section class="turns container">
     <h2 class="turns__title">Turnos:</h2>
-    <ul clas="turns__list">
+    <ul class="turns__list">
       <li :class="[{'turns__actor--active': i == active}, 'turns__actor']" v-for="(hero, i) in heroes">
         <info :data="hero"></info>
       </li>
@@ -32,17 +32,10 @@ export default {
 </script>
 
 <style lang="scss">
+@import '~assets/styles/base';
 .turns {
-  margin: 10px 0 0 10px;
-  background-color: #fff8ea;
-  border-radius: 3px;
-  padding: 10px;
-  -webkit-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.3);
-  -moz-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.3);
-  box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.3);
-
   &__title {
-    color: gray;
+    // color: gray;
     font-size: 12px;
   }
 

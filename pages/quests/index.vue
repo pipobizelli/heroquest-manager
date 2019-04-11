@@ -31,22 +31,13 @@
 
 <script>
 import QuestFacade from '@@/facades/quest'
+import DefaultQuest from '@@/data/quest.json'
 export default {
   data () {
     return {
       errors: [],
       quests: [],
-      quest: {
-        name: '',
-        description: '',
-        components: [],
-        objectives: {},
-        map: {
-          doors: [],
-          blocks: [],
-          stairway: []
-        }
-      }
+      quest: DefaultQuest
     }
   },
   async created () {
@@ -58,7 +49,7 @@ export default {
       this.quests = response.data
     },
     async addNewQuest () {
-      if (this.name) {
+      if (this.quest.name) {
         let newQuest = await QuestFacade().addQuest(this.quest)
         this.$router.replace({ path: `quests/${newQuest.data}` })
       } else {

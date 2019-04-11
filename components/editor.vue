@@ -1,6 +1,6 @@
 <template>
   <section class="editor">
-    <board :quest="quest" :tiles_disabled="tiles"></board>
+    <board :quest="quest" :tiles_selected="tiles"></board>
     <div class="editor__close-menu" @click="clearTiles" @contextmenu.prevent="clearTiles" v-show="visible"></div>
     <article class="editor__menu" :style="menuStyle" v-show="visible">
       <!-- Actors Options -->
@@ -14,7 +14,7 @@
 
       <!-- Board Options -->
       <ul class="editor__assets" v-if="board">
-        <li v-for="asset in assets" :class="{'editor__asset': asset.condition.indexOf(tiles.length) >= 0}" v-if="asset.condition.indexOf(tiles.length) >= 0">
+        <li v-for="asset in assets" class="editor__asset" v-if="asset.condition.indexOf(tiles.length) >= 0">
           <template v-if="asset.sub">
             <div class="editor__sub">
               <a href="#" @mouseover="asset.show = true">
@@ -43,6 +43,20 @@
               <span v-html="asset.label"></span>
             </a>
           </template>
+        </li>
+
+        <li class="editor__asset" v-if="tileAction">
+          <a href="#" @click.prevent="disableTiles">
+            <font-awesome-icon icon="ban"></font-awesome-icon>
+            <span>desabilitar tiles</span>
+          </a>
+        </li>
+
+        <li class="editor__asset" v-else>
+          <a href="#" @click.prevent="enableTiles">
+            <font-awesome-icon icon="check-square"></font-awesome-icon>
+            <span>habilitar tiles</span>
+          </a>
         </li>
       </ul>
     </article>
@@ -114,7 +128,7 @@ export default {
           handle: 'secretdoors',
           icon: 'eye-slash',
           label: 'add passagem secreta',
-          condition: [1]
+          condition: [2]
         },
         stairway: {
           handle: 'stairway',
@@ -186,6 +200,16 @@ export default {
     this.getMonsters()
     this.getForniture()
   },
+  computed: {
+    tileAction () {
+      let disables = this.quest.map.disables
+      let activeTiles = true
+      this.tiles.map(t => {
+        activeTiles = disables.indexOf(t) < 0
+      })
+      return activeTiles
+    }
+  },
   methods: {
     async getMonsters () {
       let response = await MonstersFacade().getAllMonsters()
@@ -232,11 +256,17 @@ export default {
       })
       this.clearTiles()
     },
-    rotate () {
-      EventHub.$emit('Editor/rotate', this.component)
-    },
     remove () {
       EventHub.$emit('Editor/remove', this.component)
+      this.clearTiles()
+    },
+    enableTiles () {
+      let tiles = this.tiles.filter(t => this.quest.map.disables.indexOf(t) >= 0)
+      EventHub.$emit('Editor/enableTiles', tiles)
+      this.clearTiles()
+    },
+    disableTiles () {
+      EventHub.$emit('Editor/disableTiles', this.tiles)
       this.clearTiles()
     }
   }
@@ -244,96 +274,97 @@ export default {
 </script>
 
 <style lang="scss">
-  .editor {
-    position: relative;
+@import '~assets/styles/base';
+.editor {
+  position: relative;
 
-    &__menu{
-      background: lightgray;
-      margin: 0 0 0 30px;
-      padding: 10px;
-      position: absolute;
-      z-index: 999;
-      -webkit-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.5);
-      -moz-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.5);
-      box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.5);
-      border-radius: 3px;
+  &__menu{
+    background: lightgray;
+    margin: 0 0 0 30px;
+    padding: 10px;
+    position: absolute;
+    z-index: 999;
+    -webkit-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.5);
+    box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.5);
+    border-radius: 3px;
 
-      &:before {
-        content: "";
-        position: absolute;
-        display: block;
-        top: 7px;
-        left: -7px;
-        width: 0;
-        height: 0;
-        border-style: solid;
-        border-width: 10px 10px 10px 0;
-        border-color: transparent lightgray transparent transparent;
-      }
-
-      &--sub {
-        // display: none;
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        left: 100%;
-
-        &:before {
-          top: 50%;
-          transform: translateY(-50%);
-        }
-      }
-    }
-
-    &__sub {
-      position: relative;
-    }
-
-    &__item {
-      img {
-        height: 23px;
-      }
-
-      span {
-        font-size: 12px;
-        line-height: 25px;
-      }
-    }
-
-    &__item + &__item {
-      margin-top: 10px;
-    }
-
-    &__close-menu {
+    &:before {
+      content: "";
       position: absolute;
       display: block;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 998;
+      top: 7px;
+      left: -7px;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 10px 10px 10px 0;
+      border-color: transparent lightgray transparent transparent;
     }
 
-    &__assets {
-      a {
-        color: black;
-        text-decoration: none;
-        display: grid;
-        grid-column-gap: 10px;
-        grid-template-columns: auto 1fr;
+    &--sub {
+      // display: none;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 100%;
+
+      &:before {
+        top: 50%;
+        transform: translateY(-50%);
       }
     }
+  }
 
-    &__assets + &__assets {
-      margin-top: 10px;
-      padding-top: 10px;
-      border-top: 5px dotted gray;
+  &__sub {
+    position: relative;
+  }
+
+  &__item {
+    img {
+      height: 23px;
     }
 
-    &__asset + &__asset {
-      border-top: 1px solid gray;
-      margin-top: 10px;
-      padding-top: 10px;
+    span {
+      font-size: 12px;
+      line-height: 25px;
     }
   }
+
+  &__item + &__item {
+    margin-top: 10px;
+  }
+
+  &__close-menu {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 998;
+  }
+
+  &__assets {
+    a {
+      color: black;
+      text-decoration: none;
+      display: grid;
+      grid-column-gap: 10px;
+      grid-template-columns: auto 1fr;
+    }
+  }
+
+  &__assets + &__assets {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 5px dotted gray;
+  }
+
+  &__asset + &__asset {
+    border-top: 1px solid gray;
+    margin-top: 10px;
+    padding-top: 10px;
+  }
+}
 </style>

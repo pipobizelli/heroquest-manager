@@ -29,6 +29,10 @@
           <font-awesome-icon icon="edit"></font-awesome-icon>
         </a>
       </div>
+      <div class="quest__data">
+        <h2 class="quest__label">Numero Máximo de Jogadores</h2>
+        <p class="quest__value" v-html="quest.slots.length"></p>
+      </div>
     </article>
     <editor :quest="quest"></editor>
     <!-- <button type="button" name="quest_update" @click="update()">Salvar</button> -->
@@ -38,6 +42,7 @@
 <script>
 import Editor from '@@/components/editor'
 import QuestFacade from '@@/facades/quest'
+import DefaultQuest from '@@/data/quest.json'
 import { EventHub } from '@@/models/event_hub'
 export default {
   data () {
@@ -48,19 +53,7 @@ export default {
         dificulty: false
       },
       id: '',
-      quest: {
-        name: '',
-        description: '',
-        dificulty: '',
-        components: [],
-        objectives: {},
-        map: {
-          doors: [],
-          blocks: [],
-          stairway: []
-        },
-        slots: []
-      }
+      quest: DefaultQuest
     }
   },
   components: {
@@ -81,6 +74,14 @@ export default {
           this.addComponent(payload)
           break
       }
+    })
+
+    EventHub.$on('Editor/enableTiles', (tiles) => {
+      this.enableTiles(tiles)
+    })
+
+    EventHub.$on('Editor/disableTiles', (tiles) => {
+      this.disableTiles(tiles)
     })
 
     EventHub.$on('Editor/remove', (payload) => {
@@ -121,6 +122,7 @@ export default {
       this.edit.name = false
       this.edit.desc = false
       this.edit.dificulty = false
+      this.saveQuest()
     },
     async saveQuest () {
       await QuestFacade().updateQuest({
@@ -165,28 +167,28 @@ export default {
       let arr = this.quest.components.filter(c => c.id !== payload.id)
       this.quest.components = arr
       this.update()
+    },
+    enableTiles (tiles) {
+      this.quest.map.disables = this.quest.map.disables.filter(t => tiles.indexOf(t) < 0)
+      this.update()
+    },
+    disableTiles (tiles) {
+      this.quest.map.disables = this.quest.map.disables.concat(tiles)
+      this.update()
     }
   }
 }
 </script>
 
 <style lang="scss">
+@import '~assets/styles/base';
 .quest {
   display: grid;
   grid-template-columns: 20% auto;
   grid-gap: 10px;
 
-  &__info {
-    margin: 10px 0 0 10px;
-  }
-
   &__data {
-    background-color: #fff8ea;
-    border-radius: 3px;
-    padding: 20px;
-    -webkit-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.3);
-    -moz-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.3);
-    box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.3);
+    @extend .container;
   }
 
   &__data + &__data {
@@ -205,12 +207,12 @@ export default {
     margin-top: 10px;
     font-size: 12px;
     font-weight: bold;
-    max-width: 120px;
+    max-width: 80%;
   }
 
   &__edit {
     color: gray;
-    display: inline-block;
+    float: right;
     margin: 7px 0 0 10px;
     vertical-align: top;
     text-decoration: none;

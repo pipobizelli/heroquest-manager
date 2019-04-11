@@ -1,0 +1,16 @@
+{
+  "name": "",
+  "description": "",
+  "dificulty": "",
+  "components": [],
+  "objectives": {},
+  "slots": [],
+  "map": {
+    "disables": [],
+    "doors": [],
+    "blocks": [],
+    "stairway": [],
+    "traps": [],
+    "secretdoors": []
+  }
+}
