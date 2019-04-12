@@ -4,26 +4,26 @@
     <div class="editor__close-menu" @click="clearTiles" @contextmenu.prevent="clearTiles" v-show="visible"></div>
     <article class="editor__menu" :style="menuStyle" v-show="visible">
       <!-- Actors Options -->
-      <ul class="editor__assets" v-if="actors">
+      <ul class="editor__assets" v-if="actorsVisible">
         <li class="editor__asset">
-          <a href="#" @click.prevent="remove()">
+          <a class="editor__link" href="#" @click.prevent="remove()" @mouseover="closeSubMenus">
             <font-awesome-icon icon="trash-alt"></font-awesome-icon> remover
           </a>
         </li>
       </ul>
 
       <!-- Board Options -->
-      <ul class="editor__assets" v-if="board">
+      <ul class="editor__assets" v-if="boardVisible">
         <li v-for="asset in assets" class="editor__asset" v-if="asset.condition.indexOf(tiles.length) >= 0">
           <template v-if="asset.sub">
             <div class="editor__sub">
-              <a href="#" @mouseover="asset.show = true">
+              <a class="editor__link" href="#" @mouseover="toggleSub(asset)">
                 <font-awesome-icon :icon="asset.icon"></font-awesome-icon>
                 <span v-html="asset.label"></span>
               </a>
               <ul class="editor__menu editor__menu--sub" @mouseleave="asset.show = false" v-show="asset.show">
                 <li class="editor__item" v-for="sub in asset.sub">
-                  <a href="#" @click.prevent="add({
+                  <a class="editor__link" href="#" @click.prevent="add({
                     type: sub.label,
                     collection: asset.collection
                   })">
@@ -36,7 +36,7 @@
           </template>
 
           <template v-else>
-            <a href="#" @click.prevent="add({
+            <a class="editor__link" href="#" @mouseover="closeSubMenus" @click.prevent="add({
               type: asset.handle
             })">
               <font-awesome-icon :icon="asset.icon"></font-awesome-icon>
@@ -46,14 +46,14 @@
         </li>
 
         <li class="editor__asset" v-if="tileAction">
-          <a href="#" @click.prevent="disableTiles">
+          <a class="editor__link" href="#" @click.prevent="disableTiles">
             <font-awesome-icon icon="ban"></font-awesome-icon>
             <span>desabilitar tiles</span>
           </a>
         </li>
 
         <li class="editor__asset" v-else>
-          <a href="#" @click.prevent="enableTiles">
+          <a class="editor__link" href="#" @click.prevent="enableTiles">
             <font-awesome-icon icon="check-square"></font-awesome-icon>
             <span>habilitar tiles</span>
           </a>
@@ -67,6 +67,7 @@
 import Config from '@@/config/env'
 import Board from '@@/components/board'
 import Tile from '@@/helpers/tile'
+import Pathfinder from '@@/helpers/pathfinder'
 import MonstersFacade from '@@/facades/monsters'
 import FurnitureFacade from '@@/facades/furniture'
 import { EventHub } from '@@/models/event_hub'
@@ -76,8 +77,8 @@ export default {
       ...Board.data(),
       tiles: [],
       visible: false,
-      board: false,
-      actors: false,
+      boardVisible: false,
+      actorsVisible: false,
       menuStyle: '',
       component: {},
       image_path: Config.paths.images,
@@ -153,8 +154,12 @@ export default {
       }
     })
 
+    EventHub.$on('Board/action/dbclick', (e) => {
+      this.tiles = Pathfinder(this.board).getAllPaths(e.tile)
+    })
+
     EventHub.$on('Board/action/handler', (e) => {
-      this.showOptions(e, 'board')
+      this.showOptions(e, 'boardVisible')
       if (this.tiles.length < 1) {
         this.tiles = [e.tile]
       }
@@ -166,7 +171,7 @@ export default {
 
     EventHub.$on('Actor/handler', (e) => {
       if (e.type !== 'doors' && e.type !== 'stairway') {
-        this.showOptions(e, 'actors')
+        this.showOptions(e, 'actorsVisible')
         this.component = {
           id: e.id,
           type: e.type
@@ -232,8 +237,8 @@ export default {
     },
     showAllMenus (sub) {
       this.visible = true
-      this.board = true
-      this.actors = true
+      this.boardVisible = true
+      this.actorsVisible = true
     },
     showMenu (sub) {
       this.visible = true
@@ -241,8 +246,19 @@ export default {
     },
     closeMenu () {
       this.visible = false
-      this.board = false
-      this.actors = false
+      this.boardVisible = false
+      this.actorsVisible = false
+      this.closeSubMenus()
+    },
+    closeSubMenus () {
+      let assets = Object.values(this.assets)
+      assets.filter(a => a.sub).map(a => {
+        a.show = false
+      })
+    },
+    toggleSub (asset) {
+      this.closeSubMenus()
+      asset.show = !asset.show
     },
     clearTiles () {
       this.closeMenu()
@@ -345,16 +361,6 @@ export default {
     z-index: 998;
   }
 
-  &__assets {
-    a {
-      color: black;
-      text-decoration: none;
-      display: grid;
-      grid-column-gap: 10px;
-      grid-template-columns: auto 1fr;
-    }
-  }
-
   &__assets + &__assets {
     margin-top: 10px;
     padding-top: 10px;
@@ -365,6 +371,21 @@ export default {
     border-top: 1px solid gray;
     margin-top: 10px;
     padding-top: 10px;
+  }
+
+  &__link {
+    color: black;
+    text-decoration: none;
+    display: grid;
+    grid-column-gap: 10px;
+    grid-template-columns: auto 1fr;
+
+    &:hover {
+      font-weight: bold;
+      img {
+        opacity: .5;
+      }
+    }
   }
 }
 </style>

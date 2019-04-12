@@ -13,8 +13,9 @@
               'tile--selected': tiles_selected.indexOf(`${l}:${c}`) >= 0
             },`tileconfig-${get_tile_config(`${l}:${c}`)}`, 'tile']"
           :data-tile="`${l}:${c}`"
-          @click="click_handler($event, `${l}:${c}`)"
-          @contextmenu.prevent="handler($event, `${l}:${c}`)">
+          @click="tile_click($event, `${l}:${c}`)"
+          @dblclick="tile_dblclick($event, `${l}:${c}`)"
+          @contextmenu.prevent="tile_handler($event, `${l}:${c}`)">
           <p v-show="showNum">
             {{l}}:{{c}}
           </p>
@@ -91,6 +92,8 @@ import { EventHub } from '@@/models/event_hub'
 export default {
   data () {
     return {
+      clicks: 0,
+      delay: 500,
       showPathConfig: false,
       showNum: false,
       board: {
@@ -178,20 +181,18 @@ export default {
       tileConfig[index] = state
       this.board.config[tile].config = tileConfig.join('')
     },
-    click_handler (e, tile) {
+    tile_click (e, tile) {
       e.preventDefault()
-      EventHub.$emit('Board/action/click', {
-        e,
-        tile
-      })
+      EventHub.$emit('Board/action/click', { tile })
     },
-    handler (e, tile) {
+    tile_dblclick (e, tile) {
+      e.preventDefault()
+      EventHub.$emit('Board/action/dbclick', { tile })
+    },
+    tile_handler (e, tile) {
       // this.open_door(tile)
       e.preventDefault()
-      EventHub.$emit('Board/action/handler', {
-        e,
-        tile
-      })
+      EventHub.$emit('Board/action/handler', { tile })
     }
   },
   mounted () {
