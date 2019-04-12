@@ -231,7 +231,8 @@ export default {
 
         EventHub.$emit('Board/action/move', {
           tile: `${r}:${c}`,
-          actor: event.target.dataset.actor
+          actor: event.target.dataset.actor,
+          id: event.target.dataset.id
         })
       })
     })
