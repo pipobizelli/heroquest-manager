@@ -12,6 +12,18 @@ export async function GetSession (req, res) {
   }
 }
 
+export async function ListSession (req, res) {
+  try {
+    let session = await Rest.GetAll()
+    res.json(session)
+  } catch (e) {
+    console.log('[Controller] Session ListSession')
+    res.json({
+      error: e
+    })
+  }
+}
+
 export async function AddSession (req, res) {
   try {
     let response = await Factory.AddSession({

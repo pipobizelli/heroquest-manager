@@ -1,5 +1,5 @@
 import express from 'express'
-import { GetSession, AddSession } from '../api/controllers/session'
+import { GetSession, ListSession, AddSession } from '../api/controllers/session'
 import { GetQuest, ListQuest, AddQuest, UpdateQuest, RemoveQuest } from '../api/controllers/quests'
 import { GetCharacter, ListCharacter } from '../api/controllers/characters'
 import { ListMonsters, GetMonster } from '../api/controllers/monsters'
@@ -12,6 +12,9 @@ app.use(BodyParser.urlencoded({ extended: true }))
 
 // Session ==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--=
 app.get('/sessions/:id', (req, res) => { GetSession(req, res) })
+app.get('/sessions', (req, res) => {
+  try { ListSession(req, res) } catch (e) { res.send('ListSession Error') }
+})
 app.post('/sessions/add', async (req, res, next) => {
   try {
     await AddSession(req, res)

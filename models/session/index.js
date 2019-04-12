@@ -1,5 +1,5 @@
 import { AddSession, GetSession } from './factory'
-import { Get, Add, AddEntities } from './rest'
+import { Get, GetAll, Add, AddEntities } from './rest'
 
 export let Factory = {
   AddSession,
@@ -8,6 +8,7 @@ export let Factory = {
 
 export let Rest = {
   Get,
+  GetAll,
   Add,
   AddEntities
 }

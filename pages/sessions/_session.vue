@@ -4,8 +4,9 @@
       <turns :components="initiative" :active="active_turn"></turns>
       <section class="session__quest container">
         <h2 class="session__quest__title" v-html="quest.title"></h2>
-        <h2 class="session__quest__description" v-html="quest.description"></h2>
+        <p class="session__quest__description" v-html="quest.description"></p>
       </section>
+      <nuxt-link to="/sessions" v-html="'Voltar'"></nuxt-link>
     </article>
     <article class="session__board">
       <board :quest="quest" :active_actor="active_actor"></board>
