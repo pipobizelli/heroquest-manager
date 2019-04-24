@@ -7,10 +7,10 @@
         <nuxt-link to="/quests">Quests</nuxt-link>
       </li>
       <li>
-        <nuxt-link to="/sessions">Nova Sessão</nuxt-link>
+        <nuxt-link to="/sessions">Sessões</nuxt-link>
       </li>
       <li>
-        <nuxt-link to="/characters">Novo Personagem</nuxt-link>
+        <nuxt-link to="/characters">Personagens</nuxt-link>
       </li>
     </ul>
   </section>

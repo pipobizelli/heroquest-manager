@@ -6,6 +6,11 @@
   "objectives": {},
   "slots": [],
   "map": {
+    "searchs": {
+      "traps": [],
+      "treasures": [],
+      "secretdoors": []
+    },
     "disables": [],
     "doors": [],
     "blocks": [],

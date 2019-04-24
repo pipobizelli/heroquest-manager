@@ -1,71 +1,70 @@
 <template>
   <section class="editor">
-    <board :quest="quest" :tiles_selected="tiles"></board>
-    <div class="editor__close-menu" @click="clearTiles" @contextmenu.prevent="clearTiles" v-show="visible"></div>
-    <article class="editor__menu" :style="menuStyle" v-show="visible">
-      <!-- Actors Options -->
-      <ul class="editor__assets" v-if="actorsVisible">
-        <li class="editor__asset">
-          <a class="editor__link" href="#" @click.prevent="remove()" @mouseover="closeSubMenus">
-            <font-awesome-icon icon="trash-alt"></font-awesome-icon> remover
-          </a>
-        </li>
-      </ul>
+    <board :quest="quest" :tiles_selected="tiles">
+      <gui :menuStyle="menuStyle" :visible="visible" :close="clearTiles">
+        <!-- Actors Options -->
+        <ul class="menu__assets" v-if="actorsVisible">
+          <li class="menu__asset">
+            <a class="menu__link" href="#" @click.prevent="remove()" @mouseover="closeSubMenus">
+              <font-awesome-icon icon="trash-alt"></font-awesome-icon> remover
+            </a>
+          </li>
+        </ul>
 
-      <!-- Board Options -->
-      <ul class="editor__assets" v-if="boardVisible">
-        <li v-for="asset in assets" class="editor__asset" v-if="asset.condition.indexOf(tiles.length) >= 0">
-          <template v-if="asset.sub">
-            <div class="editor__sub">
-              <a class="editor__link" href="#" @mouseover="toggleSub(asset)">
+        <!-- Board Options -->
+        <ul class="menu__assets" v-if="boardVisible">
+          <li v-if="asset.condition.indexOf(tiles.length) >= 0" v-for="asset in assets" class="menu__asset">
+            <template v-if="asset.sub">
+              <div class="menu__sub">
+                <a class="menu__link" href="#" @mouseover="toggleSub(asset)">
+                  <font-awesome-icon :icon="asset.icon"></font-awesome-icon>
+                  <span v-html="asset.label"></span>
+                </a>
+                <ul class="menu__gui menu__list" @mouseleave="asset.show = false" v-show="asset.show">
+                  <li class="menu__item" v-for="sub in asset.sub">
+                    <a class="menu__link" href="#" @click.prevent="add({
+                      type: sub.label,
+                      collection: asset.collection
+                    })">
+                      <img :src="`${image_path}${sub.icon}?alt=media`" :alt="sub.handle">
+                      <span v-html="sub.label"></span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </template>
+
+            <template v-else>
+              <a class="menu__link" href="#" @mouseover="closeSubMenus" @click.prevent="add({
+                type: asset.handle
+              })">
                 <font-awesome-icon :icon="asset.icon"></font-awesome-icon>
                 <span v-html="asset.label"></span>
               </a>
-              <ul class="editor__menu editor__menu--sub" @mouseleave="asset.show = false" v-show="asset.show">
-                <li class="editor__item" v-for="sub in asset.sub">
-                  <a class="editor__link" href="#" @click.prevent="add({
-                    type: sub.label,
-                    collection: asset.collection
-                  })">
-                    <img :src="`${image_path}${sub.icon}?alt=media`" :alt="sub.handle">
-                    <span v-html="sub.label"></span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </template>
-
-          <template v-else>
-            <a class="editor__link" href="#" @mouseover="closeSubMenus" @click.prevent="add({
-              type: asset.handle
-            })">
-              <font-awesome-icon :icon="asset.icon"></font-awesome-icon>
-              <span v-html="asset.label"></span>
+            </template>
+          </li>
+          <li v-if="tileAction" class="menu__asset">
+            <a class="menu__link" href="#" @click.prevent="disableTiles">
+              <font-awesome-icon icon="ban"></font-awesome-icon>
+              <span>desabilitar tiles</span>
             </a>
-          </template>
-        </li>
-
-        <li class="editor__asset" v-if="tileAction">
-          <a class="editor__link" href="#" @click.prevent="disableTiles">
-            <font-awesome-icon icon="ban"></font-awesome-icon>
-            <span>desabilitar tiles</span>
-          </a>
-        </li>
-
-        <li class="editor__asset" v-else>
-          <a class="editor__link" href="#" @click.prevent="enableTiles">
-            <font-awesome-icon icon="check-square"></font-awesome-icon>
-            <span>habilitar tiles</span>
-          </a>
-        </li>
-      </ul>
-    </article>
+          </li>
+          <li v-else class="menu__asset">
+            <a class="menu__link" href="#" @click.prevent="enableTiles">
+              <font-awesome-icon icon="check-square"></font-awesome-icon>
+              <span>habilitar tiles</span>
+            </a>
+          </li>
+        </ul>
+      </gui>
+    </board>
   </section>
 </template>
 
 <script>
 import Config from '@@/config/env'
 import Board from '@@/components/board'
+import Gui from '@@/components/menu'
 import Tile from '@@/helpers/tile'
 import Pathfinder from '@@/helpers/pathfinder'
 import MonstersFacade from '@@/facades/monsters'
@@ -142,7 +141,8 @@ export default {
   },
   props: ['quest'],
   components: {
-    Board
+    Board,
+    Gui
   },
   created () {
     EventHub.$on('Board/action/click', (e) => {
@@ -192,14 +192,6 @@ export default {
         }
       }
     })
-
-    // EventHub.$on('Actor/tile/click', (tile) => {
-    //   if (this.tiles.indexOf(tile) >= 0) {
-    //     this.tiles = this.tiles.filter(t => t !== tile)
-    //   } else {
-    //     this.tiles.push(tile)
-    //   }
-    // })
 
     // Load assets
     this.getMonsters()
@@ -293,99 +285,5 @@ export default {
 @import '~assets/styles/base';
 .editor {
   position: relative;
-
-  &__menu{
-    background: lightgray;
-    margin: 0 0 0 30px;
-    padding: 10px;
-    position: absolute;
-    z-index: 999;
-    -webkit-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.5);
-    -moz-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.5);
-    box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.5);
-    border-radius: 3px;
-
-    &:before {
-      content: "";
-      position: absolute;
-      display: block;
-      top: 7px;
-      left: -7px;
-      width: 0;
-      height: 0;
-      border-style: solid;
-      border-width: 10px 10px 10px 0;
-      border-color: transparent lightgray transparent transparent;
-    }
-
-    &--sub {
-      // display: none;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      left: 100%;
-
-      &:before {
-        top: 50%;
-        transform: translateY(-50%);
-      }
-    }
-  }
-
-  &__sub {
-    position: relative;
-  }
-
-  &__item {
-    img {
-      height: 23px;
-    }
-
-    span {
-      font-size: 12px;
-      line-height: 25px;
-    }
-  }
-
-  &__item + &__item {
-    margin-top: 10px;
-  }
-
-  &__close-menu {
-    position: absolute;
-    display: block;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 998;
-  }
-
-  &__assets + &__assets {
-    margin-top: 10px;
-    padding-top: 10px;
-    border-top: 5px dotted gray;
-  }
-
-  &__asset + &__asset {
-    border-top: 1px solid gray;
-    margin-top: 10px;
-    padding-top: 10px;
-  }
-
-  &__link {
-    color: black;
-    text-decoration: none;
-    display: grid;
-    grid-column-gap: 10px;
-    grid-template-columns: auto 1fr;
-
-    &:hover {
-      font-weight: bold;
-      img {
-        opacity: .5;
-      }
-    }
-  }
 }
 </style>

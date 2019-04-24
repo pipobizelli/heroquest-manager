@@ -1,15 +1,4 @@
 export default (map) => {
-  var getTilebyHandle = (handle) => {
-    if (typeof (handle) === 'string') {
-      return {
-        l: parseInt(handle.split(':')[0]),
-        c: parseInt(handle.split(':')[1])
-      }
-    }
-
-    return handle
-  }
-
   var getTile = (handle, index) => {
     var tile = getTilebyHandle(handle)
     if (index) {
@@ -42,6 +31,46 @@ export default (map) => {
             tile = false
           }
           break
+        case 'digupleft':
+          if (tile.l > 0 && tile.c > 0) {
+            tile = {
+              l: tile.l - 1,
+              c: tile.c - 1
+            }
+          } else {
+            tile = false
+          }
+          break
+        case 'digupright':
+          if (tile.l > 0 && tile.c < parseInt(map.tiles.columns) - 1) {
+            tile = {
+              l: tile.l - 1,
+              c: tile.c + 1
+            }
+          } else {
+            tile = false
+          }
+          break
+        case 'digdownleft':
+          if (tile.l < parseInt(map.tiles.lines) - 1 && tile.c > 0) {
+            tile = {
+              l: tile.l + 1,
+              c: tile.c - 1
+            }
+          } else {
+            tile = false
+          }
+          break
+        case 'digdownright':
+          if (tile.l < parseInt(map.tiles.lines) - 1 && tile.c < parseInt(map.tiles.columns) - 1) {
+            tile = {
+              l: tile.l + 1,
+              c: tile.c + 1
+            }
+          } else {
+            tile = false
+          }
+          break
         default:
           tile = false
       }
@@ -63,6 +92,37 @@ export default (map) => {
 
   var getDownTile = (tile) => {
     return getTile(tile, 'down')
+  }
+
+  var getDiagUpLeftTile = (tile) => {
+    return getTile(tile, 'digupleft')
+  }
+
+  var getDiagUpRightTile = (tile) => {
+    return getTile(tile, 'digupright')
+  }
+
+  var getDiagDownLeftTile = (tile) => {
+    return getTile(tile, 'digdownleft')
+  }
+
+  var getDiagDownRightTile = (tile) => {
+    return getTile(tile, 'digdownright')
+  }
+
+  var getTilebyHandle = (handle) => {
+    if (typeof (handle) === 'string') {
+      return {
+        l: parseInt(handle.split(':')[0]),
+        c: parseInt(handle.split(':')[1])
+      }
+    }
+
+    return handle
+  }
+
+  var getTileHandle = (tile) => {
+    return `${tile.l}:${tile.c}`
   }
 
   var getTileConfig = (t) => {
@@ -88,16 +148,39 @@ export default (map) => {
     return getTilebyHandle(t).c === getTilebyHandle(n).c
   }
 
+  var isTileInCross = (t, n) => {
+    return isTileInLine(t, n) || isTileInColumn(t, n)
+  }
+
+  var isTileAround = (t, n) => {
+    let tile = getTilebyHandle(t)
+    let tilesAround = [
+      getTileHandle(getDiagUpLeftTile(tile)),
+      getTileHandle(getDiagUpRightTile(tile)),
+      getTileHandle(getDiagDownLeftTile(tile)),
+      getTileHandle(getDiagDownRightTile(tile))
+    ]
+    console.log(tilesAround)
+    return isTileInCross(t, n) || tilesAround.indexOf(n) >= 0
+  }
+
   return {
     getTile,
     getTilebyHandle,
+    getTileHandle,
     getNextTile,
     getPrevTile,
     getUpTile,
     getDownTile,
+    getDiagUpLeftTile,
+    getDiagUpRightTile,
+    getDiagDownLeftTile,
+    getDiagDownRightTile,
     getTileConfig,
     getTileOffset,
     isTileInLine,
-    isTileInColumn
+    isTileInColumn,
+    isTileInCross,
+    isTileAround
   }
 }

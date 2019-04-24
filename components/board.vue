@@ -1,5 +1,6 @@
 <template>
   <article class="board">
+    <img :src="get_image('board.jpg')" alt="board">
     <section class="tiles_wrapper">
       <template v-for="(line, l) in board.tiles.lines">
         <div v-for="(column, c) in board.tiles.columns"
@@ -16,6 +17,9 @@
           @click="tile_click($event, `${l}:${c}`)"
           @dblclick="tile_dblclick($event, `${l}:${c}`)"
           @contextmenu.prevent="tile_handler($event, `${l}:${c}`)">
+          <i class="search-icon search-trap" v-show="quest.map.searchs.traps.indexOf(`${l}:${c}`) >= 0"></i>
+          <i class="search-icon search-treasure" v-show="quest.map.searchs.treasures.indexOf(`${l}:${c}`) >= 0"></i>
+          <i class="search-icon search-secretdoors" v-show="quest.map.searchs.secretdoors.indexOf(`${l}:${c}`) >= 0"></i>
           <p v-show="showNum">
             {{l}}:{{c}}
           </p>
@@ -75,7 +79,7 @@
         </template>
       </article>
     </section>
-    <img :src="get_image('board.jpg')" alt="board">
+    <slot></slot>
   </article>
 </template>
 
@@ -168,7 +172,7 @@ export default {
       let target = payload.target
       let x = payload.x
       let y = payload.y
-      target.setAttribute('data-tiles', `${payload.r}:${payload.c}`)
+      // target.setAttribute('data-tiles', `${payload.r}:${payload.c}`)
       target.setAttribute('data-x', x)
       target.setAttribute('data-y', y)
       target.style.webkitTransform = target.style.transform = `translate(${x}px, ${y}px)`
@@ -230,10 +234,13 @@ export default {
         })
 
         EventHub.$emit('Board/action/move', {
-          tile: `${r}:${c}`,
+          start: event.target.dataset.tiles,
+          end: `${r}:${c}`,
           actor: event.target.dataset.actor,
           id: event.target.dataset.id
         })
+
+        event.target.setAttribute('data-tiles', `${r}:${c}`)
       })
     })
   }
@@ -273,6 +280,8 @@ export default {
     }
   }
   .tile {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 33%);
     font-size: 10px;
     width: 3.8%;
     float: left;
@@ -293,11 +302,11 @@ export default {
     }
 
     &--green {
-      background-color: rgba(99,161,110,.5);
+      background-color: rgba(99,161,110,.3);
     }
 
     &--yellow {
-      background-color: rgba(238,239,159,.5);
+      background-color: rgba(238,239,159,.3);
     }
 
     &--pathconfig {
@@ -406,4 +415,25 @@ export default {
       }
     }
   }
+
+  .search {
+    &-icon {
+      display: block;
+      border-radius: 10px;
+      max-height: 10px;
+    }
+
+    &-trap {
+      background-color: rgba(200,0,0,.15);
+    }
+
+    &-treasure {
+      background-color: rgba(200,200,0,.2);
+    }
+
+    &-secretdoors {
+      background-color: rgba(0,0,200,.15);
+    }
+  }
+
 </style>
