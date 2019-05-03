@@ -6,35 +6,18 @@
         <h2 class="session__quest__title" v-html="quest.title"></h2>
         <p class="session__quest__description" v-html="quest.description"></p>
       </section>
+      <button type="button" name="button" @click="undo">Undo</button>
       <nuxt-link to="/sessions" v-html="'Voltar'"></nuxt-link>
     </article>
     <article class="session__board">
       <board :quest="quest" :active_actor="active_actor">
         <gui :menuStyle="menuStyle" v-show="menu_visible" :close="closeMenu">
-          <!-- Combat Options -->
-          <ul class="menu__assets" v-if="combate_options">
-            <li class="menu__asset">
-              <a href="#" class="menu__link">
-                <font-awesome-icon icon="fist-raised"></font-awesome-icon> atacar
-              </a>
-            </li>
-          </ul>
-
-          <!-- Search Options -->
-          <ul class="menu__assets" v-if="search_options">
-            <li class="menu__asset">
-              <a href="#" @click.prevent="search({type: 'traps'})" class="menu__link">
-                <font-awesome-icon icon="mountain"></font-awesome-icon> buscar por armadilha
-              </a>
-            </li>
-            <li class="menu__asset">
-              <a href="#" @click.prevent="search({type: 'secretdoors'})" class="menu__link">
-                <font-awesome-icon icon="dungeon"></font-awesome-icon> buscar por passagem secreta
-              </a>
-            </li>
-            <li class="menu__asset">
-              <a href="#" @click.prevent="search({type: 'treasures'})" class="menu__link">
-                <font-awesome-icon icon="gem"></font-awesome-icon> buscar por tesouros
+          <!-- Options -->
+          <ul class="menu__assets" v-for="option in options" v-if="option.visible">
+            <li v-for="action in option.actions" class="menu__asset">
+              <a href="#" @click.prevent="action.callback(action.params)" class="menu__link">
+                <font-awesome-icon :icon="action.icon"></font-awesome-icon>
+                <span v-html="action.label"></span>
               </a>
             </li>
           </ul>
@@ -67,15 +50,60 @@ export default {
       initiative: [],
       menu_visible: false,
       combate_options: false,
-      search_options: false,
+      options: {
+        combat: {
+          visible: false,
+          actions: [{
+            label: 'atacar',
+            icon: 'fist-raised',
+            callback: this.fight,
+            params: {}
+          }]
+        },
+        search: {
+          visible: false,
+          actions: [{
+            label: 'buscar por armadilha',
+            icon: 'mountain',
+            callback: this.search,
+            params: {
+              type: 'traps'
+            }
+          }, {
+            label: 'buscar por passagem secreta',
+            icon: 'dungeon',
+            callback: this.search,
+            params: {
+              type: 'secretdoors'
+            }
+          }, {
+            label: 'buscar por tesouros',
+            icon: 'gem',
+            callback: this.search,
+            params: {
+              type: 'treasures'
+            }
+          }]
+        },
+        self: {
+          visible: false,
+          actions: [{
+            label: 'usar poção',
+            icon: 'plus',
+            callback: this.usePotion
+          }]
+        }
+      },
       menuStyle: ''
     }
   },
   watch: {
-    active_actions (val) {
+    active_action (val) {
       if (val >= 2) {
-        this.action = 0
+        this.active_action = 0
         this.active_turn++
+        let order = this.active_turn % this.initiative.length
+        this.active_actor = this.initiative[order].entity_id
       }
     },
     turns (val) {
@@ -83,7 +111,7 @@ export default {
     }
   },
   async created () {
-    window.Tile = Tile(this.board)
+    // window.Tile = Tile(this.board)
     EventHub.$on('Board/action/move', (data) => {
       if (data.start !== data.end) {
         this.active_tiles = [data.end]
@@ -97,10 +125,18 @@ export default {
     EventHub.$on('Actor/handler', (e) => {
       let activeActorDOM = document.querySelectorAll(`[data-id="${this.active_actor}"]`)[0]
       let activeTile = activeActorDOM.dataset.tiles
-      if (Tile(this.board).isTileAround(activeTile, e.tile)) {
+      if (e.tile === activeTile) {
         this.showMenu({
           ...e,
-          options: (e.type === 'monster' || e.type === 'hero') ? 'combate_options' : 'search_options'
+          type: 'self'
+        })
+      }
+
+      if (Tile(this.board).isTileAround(activeTile, e.tile)) {
+        // todo
+        this.showMenu({
+          ...e,
+          type: 'combat'
         })
       }
     })
@@ -109,7 +145,7 @@ export default {
       this.active_tiles = Pathfinder(this.board).getAllPaths(e.tile)
       this.showMenu({
         ...e,
-        options: 'search_options'
+        type: 'search'
       })
     })
 
@@ -138,14 +174,15 @@ export default {
     },
     showMenu (payload) {
       this.menu_visible = true
-      this[payload.options] = true
+      this.options[payload.type].visible = true
       let pos = Tile(this.board).getTileOffset(payload.tile)
       this.menuStyle = `top: ${pos.y}px; left: ${pos.x}px;`
     },
     closeMenu () {
       this.menu_visible = false
-      this.combate_options = false
-      this.search_options = false
+      Object.values(this.options).forEach(option => {
+        option.visible = false
+      })
     },
     setAction (payload) {
       let component = this.quest.components.filter(c => c.entity_id === payload.id)[0]
@@ -178,6 +215,21 @@ export default {
       })
       this.active_action++
       this.active_tiles = []
+    },
+    undo () {
+      this.active_turn = this.active_turn > 0 ? this.active_turn-- : 0
+      console.log(this.active_turn, this.initiative.length)
+      let order = this.active_turn % this.initiative.length
+      console.log('order:', order)
+      this.active_actor = this.initiative[order].entity_id
+      this.active_tiles = []
+      this.applyAction(this.turns[this.active_turn])
+    },
+    applyAction (turn) {
+      console.log(turn)
+      this.quest.components.map(c => {
+        Object.assign({}, c, turn.data)
+      })
     }
   },
   components: {

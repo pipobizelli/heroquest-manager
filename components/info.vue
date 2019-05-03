@@ -39,6 +39,7 @@ export default {
   }
 
   &__label {
+    font-size: 12px;
     line-height: 25px;
     text-decoration: none;
     color: gray;

@@ -2,12 +2,12 @@
   <section class="turns container">
     <h2 class="turns__title">Turnos:</h2>
     <ul class="turns__list">
-      <li :class="[{'turns__actor--active': i == active}, 'turns__actor']" v-for="(hero, i) in heroes">
+      <li :class="[{'turns__actor--active': i == actual}, 'turns__actor']" v-for="(hero, i) in heroes">
         <info :data="hero"></info>
       </li>
-      <li class="turns__actor">
+      <li v-if="hasMonsters" :class="[{'turns__actor--active': actual > (heroes.length - 1)}, 'turns__actor']">
         <info :data="{
-          icon: 'orc.png',
+          icon: 'chaos.png',
           handle: 'monstros',
           label: 'Monstros'
         }"></info>
@@ -26,6 +26,12 @@ export default {
   computed: {
     heroes () {
       return this.components.filter(c => c.class === 'hero')
+    },
+    actual () {
+      return this.active % this.components.length
+    },
+    hasMonsters () {
+      return this.components.filter(c => c.class === 'monster').length > 0
     }
   }
 }

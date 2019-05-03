@@ -24,7 +24,8 @@ import {
   faCheckSquare,
   faFistRaised,
   faMountain,
-  faGem
+  faGem,
+  faHatWizard
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
@@ -52,7 +53,8 @@ export default function () {
     faCheckSquare,
     faFistRaised,
     faMountain,
-    faGem
+    faGem,
+    faHatWizard
   ])
   Vue.component('font-awesome-icon',
   FontAwesomeIcon)

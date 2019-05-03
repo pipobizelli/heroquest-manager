@@ -419,20 +419,30 @@ export default {
   .search {
     &-icon {
       display: block;
+      font-size: 9px;
       border-radius: 10px;
       max-height: 10px;
     }
 
     &-trap {
-      background-color: rgba(200,0,0,.15);
+      &:before {
+        content: "A";
+        display: block;
+      }
     }
 
     &-treasure {
-      background-color: rgba(200,200,0,.2);
+      &:before {
+        content: "T";
+        display: block;
+      }
     }
 
     &-secretdoors {
-      background-color: rgba(0,0,200,.15);
+      &:before {
+        content: "S";
+        display: block;
+      }
     }
   }
 

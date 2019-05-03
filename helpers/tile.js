@@ -153,6 +153,10 @@ export default (map) => {
   }
 
   var isTileAround = (t, n) => {
+    if (t === n) {
+      return false
+    }
+
     let tile = getTilebyHandle(t)
     let tilesAround = [
       getTileHandle(getDiagUpLeftTile(tile)),
@@ -160,7 +164,6 @@ export default (map) => {
       getTileHandle(getDiagDownLeftTile(tile)),
       getTileHandle(getDiagDownRightTile(tile))
     ]
-    console.log(tilesAround)
     return isTileInCross(t, n) || tilesAround.indexOf(n) >= 0
   }
 
